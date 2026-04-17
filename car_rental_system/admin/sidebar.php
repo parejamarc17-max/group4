@@ -4,6 +4,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 <div class="sidebar">
     <div style="display: flex; align-items: center; margin-bottom: 20px; padding: 10px;">
+        <img src="car_rental_system/assets/images/best_car.jpg" alt="cuete">
         <h2 style="margin: 0; color: white;"><strong>DRIVE ADMIN</strong></h2>
     </div>
     
