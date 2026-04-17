@@ -86,7 +86,7 @@ foreach ($possibleImages as $image) {
         .side-menu a {
             display: block;
             padding: 0.8rem 1rem;
-            color: #333;
+            color: #ffffff;
             text-decoration: none;
             transition: 0.3s;
             border-radius: 8px;
