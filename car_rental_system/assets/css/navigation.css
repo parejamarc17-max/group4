@@ -1,0 +1,109 @@
+/* Navigation Styles */
+
+/* Side Menu for main pages */
+.sidebar {
+    width: 260px;
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+}
+
+.btn-nav {
+    display: block;
+    padding: 12px;
+    margin: 8px 0;
+    background: #334155;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-nav:hover {
+    background: #ff6b00;
+}
+
+/* 🔥 ACTIVE FIX */
+.btn-nav.active {
+    background: #ff6b00;
+}
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100%;
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+    transition: 0.3s ease;
+    z-index: 999;
+}
+
+.side-menu.active {
+    left: 0;
+}
+
+.side-menu h3 {
+    color: #ff6b00;
+    margin-bottom: 20px;
+}
+
+.side-menu a {
+    display: block;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    background: #334155;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.side-menu a:hover {
+    background: #ff6b00;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 998;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Sidebar for admin pages */
+.sidebar {
+    width: 260px;
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+    flex-shrink: 0;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.btn-nav {
+    display: block;
+    padding: 12px;
+    margin: 8px 0;
+    background: #334155;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-nav:hover {
+    background: #ff6b00;
+}
