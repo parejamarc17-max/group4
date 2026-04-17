@@ -26,6 +26,7 @@
 /* 🔥 ACTIVE FIX */
 .btn-nav.active {
     background: #ff6b00;
+    color: white
 }
 .side-menu {
     position: fixed;
@@ -42,6 +43,7 @@
 
 .side-menu.active {
     left: 0;
+    color: white;
 }
 
 .side-menu h3 {
