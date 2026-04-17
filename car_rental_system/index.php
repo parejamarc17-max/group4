@@ -11,11 +11,9 @@ require_once 'config/database.php';
 
 // Try multiple possible image paths (check which one exists)
 $possibleImages = [
-    'assets/images/hero-bg.jpg',
     'assets/images/2021-Rolls-Royce-Ghost.jpg',
     'assets/images/2021 Rolls Royce Ghost.jpg',
-    'assets/images/car-hero.jpg',
-    'assets/images/default-hero.jpg'
+
 ];
 
 $hero_bg = 'assets/images/hero-bg.jpg'; // Default fallback
@@ -158,7 +156,6 @@ foreach ($possibleImages as $image) {
             <nav>
                 <a href="index.php"><strong>Home</strong></a>
                 <a href="car.php"><strong>Cars</strong></a>
-                <a href="logout.php"><strong>Logout</strong></a>
             </nav>
         </div>
     </div>
@@ -168,9 +165,6 @@ foreach ($possibleImages as $image) {
 <div class="side-menu" id="sideMenu">
     <h3>Dashboard Menu</h3>
     <a href="admin/dashboard.php" onclick="toggleMenu()">Dashboard</a>
-    <a href="admin/cars.php" onclick="toggleMenu()">Cars</a>
-    <a href="admin/rentals.php" onclick="toggleMenu()">Rentals</a>
-    <a href="admin/users.php" onclick="toggleMenu()">Users</a>
     <a href="logout.php" onclick="toggleMenu()"><strong>Logout</strong></a>
 </div>
 

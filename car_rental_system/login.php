@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 body {
     font-family: 'Segoe UI', sans-serif;
 
-    /* 🔥 BACKGROUND IMAGE */
+    /* BACKGROUND IMAGE */
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
                 url('assets/images/login_background.png') center/cover no-repeat;
 
@@ -165,13 +165,35 @@ button:hover {
     text-decoration: none;
 }
 
-/* SHOW PASSWORD */
-.show-pass {
-    font-size: 0.8rem;
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* SHOW PASSWORD CHECKBOX STYLES */
+.show-password-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
     cursor: pointer;
+}
+
+.show-password-container input {
+    width: auto;
+    cursor: pointer;
+    margin: 0;
+}
+
+.show-password-container label {
+    margin: 0;
+    cursor: pointer;
+    font-size: 0.85rem;
     color: #555;
-    margin-top: 5px;
-    display: inline-block;
+    font-weight: normal;
+}
+
+.show-password-container label:hover {
+    color: #ff6b00;
 }
 </style>
 
@@ -181,9 +203,9 @@ button:hover {
 
 <div class="login-container">
     
-    <img src="assets/images/logo.png" class="logo">
+    <img src="assets/images/logo.png" alt="Logo" class="logo">
     <h1>CarRent</h1>
-    <p>Drive your dream car </p>
+    <p>Drive your dream car</p>
 
     <?php if ($error): ?>
         <div class="alert error"><?= htmlspecialchars($error) ?></div>
@@ -198,13 +220,18 @@ button:hover {
         
         <div class="form-group">
             <label>Username</label>
-            <input type="text" name="username" required>
+            <input type="text" name="username" required autocomplete="username">
         </div>
         
         <div class="form-group">
             <label>Password</label>
-            <input type="password" name="password" id="password" required>
-            <span class="show-pass" onclick="togglePassword()">Show Password</span>
+            <input type="password" name="password" id="password" required autocomplete="current-password">
+            
+            <!-- Checkbox to show/hide password -->
+            <div class="show-password-container">
+                <input type="checkbox" id="showPasswordCheckbox" onclick="togglePassword()">
+                <label for="showPasswordCheckbox">Show Password</label>
+            </div>
         </div>
         
         <button type="submit">Login</button>
@@ -218,8 +245,14 @@ button:hover {
 
 <script>
 function togglePassword() {
-    const pass = document.getElementById("password");
-    pass.type = pass.type === "password" ? "text" : "password";
+    const passwordInput = document.getElementById("password");
+    const checkbox = document.getElementById("showPasswordCheckbox");
+    
+    if (checkbox.checked) {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
 }
 </script>
 

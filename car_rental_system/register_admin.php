@@ -63,7 +63,67 @@ body {
     box-shadow: 0 0 6px rgba(255,107,0,0.3);
 }
 
-button {
+/* Password wrapper for better positioning */
+.password-wrapper {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.password-wrapper input {
+    margin-bottom: 0;
+    padding-right: 45px;
+}
+
+/* Show password checkbox container */
+.show-password-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.show-password-container input {
+    width: auto;
+    cursor: pointer;
+    margin: 0;
+}
+
+.show-password-container label {
+    margin: 0;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: normal;
+}
+
+.show-password-container label:hover {
+    color: #ff6b00;
+}
+
+/* Eye button style (alternative) */
+.toggle-password-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    padding: 0;
+    width: auto;
+    color: #666;
+}
+
+.toggle-password-eye:hover {
+    background: none;
+    color: #ff6b00;
+    transform: translateY(-50%) scale(1.1);
+}
+
+button[type="submit"] {
     width: 100%;
     padding: 12px;
     border: none;
@@ -76,7 +136,7 @@ button {
     margin-top: 5px;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background: #e65c00;
 }
 
@@ -140,11 +200,22 @@ button:hover {
     <?php endif; ?>
 
     <form action="register_admin_process.php" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="text" name="full_name" placeholder="Full Name" required>
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="text" name="phone" placeholder="Phone">
+        <input type="text" name="username" placeholder="Username" required autocomplete="username">
+        <input type="text" name="full_name" placeholder="Full Name" required autocomplete="name">
+        <input type="email" name="email" placeholder="Email" autocomplete="email">
+        
+        <!-- Password field with show/hide option -->
+        <div class="password-wrapper">
+            <input type="password" name="password" id="password" placeholder="Password" required autocomplete="new-password">
+        </div>
+        
+        <!-- Checkbox to show/hide password -->
+        <div class="show-password-container">
+            <input type="checkbox" id="showPasswordCheckbox" onclick="togglePassword()">
+            <label for="showPasswordCheckbox">Show Password</label>
+        </div>
+        
+        <input type="text" name="phone" placeholder="Phone" autocomplete="tel">
         <textarea name="address" placeholder="Address"></textarea>
 
         <button type="submit">Register as Admin</button>
@@ -153,6 +224,19 @@ button:hover {
     <a href="login.php">Already have an account? Login</a>
     <a href="register.php">← Back to Registration Options</a>
 </div>
+
+<script>
+function togglePassword() {
+    const passwordInput = document.getElementById("password");
+    const checkbox = document.getElementById("showPasswordCheckbox");
+    
+    if (checkbox.checked) {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
+}
+</script>
 
 </body>
 </html>
