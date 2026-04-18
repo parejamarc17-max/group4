@@ -8,9 +8,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
     
     <!-- Back button -->
-    <button onclick="history.back()" class="btn-nav" style="background-color: #555; margin-bottom: 10px;">
-        ⬅️ Back
-    </button>
+    <button onclick="window.location.href='http://localhost/group4/car_rental_system/index.php'" 
+        class="btn-nav" 
+        style="background-color: #555; margin-bottom: 10px;">
+    ⬅️ Back
+</button>
     
     <a href="dashboard.php" class="btn-nav <?= $current_page == 'dashboard.php' ? 'active' : '' ?>">Dashboard</a>
     <a href="cars.php" class="btn-nav <?= $current_page == 'cars.php' ? 'active' : '' ?>"> Cars</a>
