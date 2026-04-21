@@ -62,11 +62,11 @@ $error = '';
     <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
     <h2>🚗 DRIVE ADMIN</h2>
     <a href="dashboard.php" class="btn-nav">📊 Dashboard</a>
-    <a href="car_list.php" class="btn-nav">🚘 List of Vehicle's</a>
+    <a href="car_list.php" class="btn-nav">🚘 Automobile</a>
     <a href="rentals.php" class="btn-nav">📅 Rentals</a>
     <a href="products.php" class="btn-nav">📦 Products</a>
     <a href="sales.php" class="btn-nav">💰 Sales</a>
-    <a href="users.php" class="btn-nav">👥 Users</a>
+    <a href="users.php" class="btn-nav">👥 Workers</a>
     <a href="pending_workers.php" class="btn-nav">👷 Pending Workers</a>
     <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
 </div>
@@ -75,10 +75,10 @@ $error = '';
 
 <div class="dashboard">
     <div class="main">
-        <h1>🚘 Manage Fleet</h1>
+        <h1>🚘 List of Automobile's</h1>
 
         <div class="form-container">
-            <h3>Add New Car</h3>
+            <h3>Automobile</h3>
 
             <?php if ($success): ?>
                 <div class="alert-success"><?= htmlspecialchars($success) ?></div>
