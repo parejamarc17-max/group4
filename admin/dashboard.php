@@ -52,7 +52,7 @@ $total_users = $stmt->fetch()['count'];
     <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;">
     <h2>🚗 DRIVE ADMIN</h2>
     <a href="dashboard.php" class="btn-nav">📊 Dashboard</a>
-    <a href="manage_car.php" class="btn-nav">🚘 Manage Cars</a>
+    <a href="car_list.php" class="btn-nav">🚘 List of Vehicle's</a>
     <a href="rentals.php" class="btn-nav">📅 Rentals</a>
     <a href="products.php" class="btn-nav">📦 Products</a>
     <a href="sales.php" class="btn-nav">💰 Sales</a>

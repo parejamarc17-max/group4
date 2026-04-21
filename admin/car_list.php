@@ -21,106 +21,6 @@ if (!is_dir($uploadDir)) {
 
 $success = '';
 $error = '';
-
-// ADD CAR
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
-    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
-        die('Invalid CSRF token');
-    }
-
-    $carName = trim($_POST['car_name'] ?? '');
-    $brand = trim($_POST['brand'] ?? '');
-    $model = trim($_POST['model'] ?? '');
-    $year = trim($_POST['year'] ?? '');
-    $plateNumber = trim($_POST['plate_number'] ?? '');
-    $pricePerDay = trim($_POST['price_per_day'] ?? '');
-    $description = trim($_POST['description'] ?? '');
-
-    if ($carName === '' || $plateNumber === '' || $pricePerDay === '') {
-        $error = "Please fill in all required fields.";
-    } else {
-        $imageName = null;
-
-        // IMAGE UPLOAD
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-            $fileTmp = $_FILES['image']['tmp_name'];
-            $fileSize = $_FILES['image']['size'];
-            $fileType = mime_content_type($fileTmp);
-
-            $allowedTypes = [
-                'image/jpeg' => 'jpg',
-                'image/png'  => 'png',
-                'image/webp' => 'webp'
-            ];
-
-            if (!array_key_exists($fileType, $allowedTypes)) {
-                $error = "Invalid file type. Only JPG, PNG, and WEBP are allowed.";
-            } elseif ($fileSize > 2 * 1024 * 1024) {
-                $error = "File too large. Max 2MB allowed.";
-            } else {
-                $imageName = uniqid("car_", true) . "." . $allowedTypes[$fileType];
-
-                if (!move_uploaded_file($fileTmp, $uploadDir . $imageName)) {
-                    $error = "Failed to upload image.";
-                }
-            }
-        } else {
-            $error = "Please upload a car image.";
-        }
-
-        if ($error === '') {
-            $stmt = $pdo->prepare("INSERT INTO car 
-                (image, car_name, brand, model, year, plate_num, price_per_day, description, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'available')");
-
-            if ($stmt->execute([
-                $imageName,
-                $carName,
-                $brand,
-                $model,
-                $year !== '' ? $year : null,
-                $plateNumber,
-                $pricePerDay,
-                $description
-            ])) {
-                $success = "Car added successfully!";
-                header("Location: manage_car.php");
-                exit();
-            } else {
-                $error = "Failed to add car to database.";
-            }
-        }
-    }
-}
-
-// DELETE
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
-        die('Invalid CSRF token');
-    }
-
-    $carId = (int) $_POST['delete'];
-
-    // get image before deleting
-    $stmt = $pdo->prepare("SELECT image FROM car WHERE id = ?");
-    $stmt->execute([$carId]);
-    $carToDelete = $stmt->fetch();
-
-    $stmt = $pdo->prepare("DELETE FROM car WHERE id = ?");
-    $stmt->execute([$carId]);
-
-    if ($carToDelete && !empty($carToDelete['image'])) {
-        $imagePath = $uploadDir . $carToDelete['image'];
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
-        }
-    }
-
-    header("Location: manage_car.php");
-    exit();
-}
-
-$cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -163,7 +63,7 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
     <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
     <h2>🚗 DRIVE ADMIN</h2>
     <a href="dashboard.php" class="btn-nav">📊 Dashboard</a>
-    <a href="manage_car.php" class="btn-nav">🚘 Manage Cars</a>
+    <a href="car_list.php" class="btn-nav">🚘 List of Vehicle's</a>
     <a href="rentals.php" class="btn-nav">📅 Rentals</a>
     <a href="products.php" class="btn-nav">📦 Products</a>
     <a href="sales.php" class="btn-nav">💰 Sales</a>
