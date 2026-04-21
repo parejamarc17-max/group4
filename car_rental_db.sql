@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2026 at 09:42 AM
+-- Generation Time: Apr 21, 2026 at 10:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,31 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cars`
+-- Table structure for table `car`
 --
 
-CREATE TABLE `cars` (
+CREATE TABLE `car` (
   `id` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `car_name` varchar(100) NOT NULL,
   `brand` varchar(50) DEFAULT NULL,
   `model` varchar(50) DEFAULT NULL,
+  `plate_num` varchar(100) NOT NULL,
   `year` int(11) DEFAULT NULL,
-  `plate_number` varchar(20) DEFAULT NULL,
   `price_per_day` decimal(10,2) NOT NULL,
   `description` text DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
   `status` enum('available','rented','maintenance') DEFAULT 'available',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cars`
---
-
-INSERT INTO `cars` (`id`, `car_name`, `brand`, `model`, `year`, `plate_number`, `price_per_day`, `description`, `image`, `status`, `created_at`) VALUES
-(1, 'mustang', 'toyota', NULL, 2020, NULL, 20000.00, NULL, 'assets/images/car_69e1053a24dfa3.25660275.jpg', 'rented', '2026-04-16 15:50:18'),
-(2, 'gtr', 'Toyota', NULL, 2024, NULL, 5000.00, NULL, 'assets/images/car_69e1d3b40aa0d1.55609985.jpg', 'available', '2026-04-17 06:31:16'),
-(3, 'rolls royce', 'Mitsubishi', NULL, 2026, NULL, 5000.00, NULL, 'assets/images/car_69e1d7aba0d8b4.16846789.jpg', 'rented', '2026-04-17 06:48:11');
 
 -- --------------------------------------------------------
 
@@ -200,15 +191,22 @@ CREATE TABLE `worker_applications` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `worker_applications`
+--
+
+INSERT INTO `worker_applications` (`id`, `user_id`, `full_name`, `phone`, `address`, `experience`, `proof_file`, `meeting_date`, `status`, `created_at`) VALUES
+(1, NULL, 'Thomaston', '0987632422223', 'mati', NULL, NULL, NULL, 'pending', '2026-04-17 11:09:35');
+
+--
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `cars`
+-- Indexes for table `car`
 --
-ALTER TABLE `cars`
+ALTER TABLE `car`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `plate_number` (`plate_number`);
+  ADD UNIQUE KEY `plate_num` (`plate_num`);
 
 --
 -- Indexes for table `customers`
@@ -268,10 +266,10 @@ ALTER TABLE `worker_applications`
 --
 
 --
--- AUTO_INCREMENT for table `cars`
+-- AUTO_INCREMENT for table `car`
 --
-ALTER TABLE `cars`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `car`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -313,7 +311,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `worker_applications`
 --
 ALTER TABLE `worker_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

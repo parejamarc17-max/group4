@@ -1,0 +1,300 @@
+/* Navigation Styles */
+
+/* ================= HEADER ================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: white;
+    border-bottom: 1px solid #eef2f6;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.custom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-left h2 {
+    color: #1e2a3e;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.header-right nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    padding: 0.5rem 0.8rem;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+nav a:hover {
+    color: #ff6b00;
+    background: rgba(255, 107, 0, 0.1);
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.username {
+    color: #1e2a3e;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    background: #f0f0f0;
+    border-radius: 20px;
+}
+
+.logout-btn {
+    background: #ff6b00;
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #e55a00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 107, 0, 0.3);
+}
+
+/* ================= HAMBURGER MENU ================= */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+}
+
+.hamburger-btn span {
+    width: 25px;
+    height: 3px;
+    background: #1e2a3e;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* ================= SIDE MENU ================= */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100%;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+}
+
+.side-menu.active {
+    left: 0;
+}
+
+.menu-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #ff6b00;
+}
+
+.menu-header h3 {
+    color: #ff6b00;
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.side-menu a {
+    display: block;
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 8px;
+    background: #334155;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.side-menu a:hover {
+    background: #ff6b00;
+    color: white;
+    padding-left: 20px;
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+.side-menu a.active {
+    background: #ff6b00;
+    border-left: 4px solid #fff;
+    padding-left: 12px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 998;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* ================= SIDEBAR FOR ADMIN PAGES ================= */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+    padding: 20px;
+    flex-shrink: 0;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    color: #ff6b00;
+    border-bottom: 2px solid #ff6b00;
+    padding-bottom: 10px;
+}
+
+.btn-nav {
+    display: block;
+    padding: 12px 16px;
+    margin: 8px 0;
+    background: #334155;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    font-weight: 500;
+}
+
+.btn-nav:hover {
+    background: #ff6b00;
+    color: white;
+    padding-left: 20px;
+    border-left-color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+.btn-nav.active {
+    background: #ff6b00;
+    color: white;
+    border-left-color: #fff;
+    padding-left: 12px;
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+@media (max-width: 768px) {
+    header {
+        padding: 0.8rem 1rem;
+    }
+
+    .header-right nav {
+        gap: 1rem;
+    }
+
+    .hamburger-btn {
+        display: flex;
+    }
+
+    nav a {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .user-section {
+        gap: 0.5rem;
+    }
+
+    .username {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .logout-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .side-menu {
+        width: 250px;
+        left: -250px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .header-left h2 {
+        font-size: 1.2rem;
+    }
+
+    .header-right nav {
+        gap: 0.5rem;
+    }
+
+    nav a {
+        padding: 0.3rem 0.4rem;
+        font-size: 0.8rem;
+    }
+
+    .username {
+        display: none;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: fixed;
+        left: -100%;
+        height: 100vh;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+}
