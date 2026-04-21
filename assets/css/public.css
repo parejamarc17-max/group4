@@ -1,153 +1,212 @@
+/* ========================================
+   PUBLIC/LANDING PAGE STYLES
+   ======================================== */
 
-        * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body.public-page {
+    background: linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%);
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #f8f9fa;
-    color: #2d3748;
-    overflow-x: hidden;
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-html {
-    scroll-behavior: smooth;
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: white;
 }
 
-/* ========== NAVBAR ========== */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(15, 43, 61, 0.98);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    padding: 1rem 0;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
 }
 
-.nav-container {
-    max-width: 1300px;
+/* ========================================
+   SECTION STYLES
+   ======================================== */
+
+.rentals-section,
+.services-section,
+.features-section {
+    padding: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+.section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #1e2a3e;
 }
 
-.logo:hover {
-    transform: scale(1.05);
-}
+/* ========================================
+   RENTAL GRID
+   ======================================== */
 
-.logo i {
-    color: #ffb347;
-    margin-right: 8px;
-}
-
-.logo span {
-    color: white;
-}
-
-.logo .highlight {
-    color: #ffb347;
-}
-
-.nav-menu {
-    display: flex;
+.rental-grid,
+.car-grid,
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    list-style: none;
-    align-items: center;
 }
 
-.nav-link {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
+.rental-item,
+.car-item,
+.product-item {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
     transition: all 0.3s ease;
-    position: relative;
-    padding: 0.5rem 0;
+    background: white;
 }
 
-.nav-link:hover, .nav-link.active {
-    color: #ffb347;
+.rental-item:hover,
+.car-item:hover,
+.product-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #ffb347;
-    transition: width 0.3s ease;
-}
-
-.nav-link:hover::after, .nav-link.active::after {
+.rental-img,
+.car-img,
+.product-img {
     width: 100%;
+    height: 160px;
+    object-fit: cover;
+    background: #1e3a5f;
 }
 
-.auth-section {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-left: auto;
+/* ========================================
+   CAR/PRODUCT DETAILS
+   ======================================== */
+
+.car-year,
+.car-model {
+    display: inline-block;
+    background: #eef2f6;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: #5b6e8c;
+    margin: 5px 2px;
 }
 
-.user-guest {
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0.6rem 1.2rem;
-    background: rgba(255, 179, 71, 0.15);
-    border-radius: 30px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+.car-price,
+.product-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ff6b00;
+    margin: 0.5rem 0;
 }
 
-.user-guest:hover {
-    background: rgba(255, 179, 71, 0.25);
+.car-price span,
+.product-price span {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #7f8c8d;
 }
 
-.logout-btn {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+.btn-rent-now,
+.btn-buy-now {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
     border: none;
+    background: #222;
     color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 30px;
     cursor: pointer;
-    font-weight: 600;
+    border-radius: 5px;
     transition: all 0.3s ease;
-    font-size: 0.95rem;
 }
 
-.logout-btn:hover {
-    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+.btn-rent-now:hover,
+.btn-buy-now:hover {
+    background: #ff6b00;
 }
 
-.login-btn {
-    background: #ffb347;
-    color: #0f2b3d;
-    padding: 0.6rem 1.5rem;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
+/* ========================================
+   EMPTY STATE
+   ======================================== */
+
+.empty-state {
+    text-align: center;
+    color: #999;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.empty-state::before {
+    content: '📭';
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
+
+/* ========================================
+   RESPONSIVE PUBLIC PAGES
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .rental-grid,
+    .car-grid,
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .rental-grid,
+    .car-grid,
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .rentals-section,
+    .services-section,
+    .features-section {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .rental-grid,
+    .car-grid,
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 40px 10px;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+}
+
     transition: all 0.3s ease;
     display: inline-block;
 }

@@ -1,4 +1,6 @@
-/* Manage Car Styles */
+/* ========================================
+   CAR MANAGEMENT & FORMS
+   ======================================== */
 
 .car-form-grid {
     display: grid;
@@ -48,6 +50,10 @@
     margin: 10px 0;
 }
 
+/* ========================================
+   CAR LIST TABLE
+   ======================================== */
+
 .car-list-table {
     width: 100%;
     border-collapse: collapse;
@@ -82,6 +88,10 @@
     height: auto;
     border-radius: 4px;
 }
+
+/* ========================================
+   ACTION BUTTONS
+   ======================================== */
 
 .car-action-buttons {
     display: flex;
@@ -122,6 +132,10 @@
     box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
+/* ========================================
+   RESPONSIVE CAR MANAGEMENT
+   ======================================== */
+
 @media (max-width: 1200px) {
     .car-form-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -148,6 +162,22 @@
 
     .car-btn-edit,
     .car-btn-delete {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .car-list-table {
+        font-size: 0.8rem;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .car-image-cell {
+        display: none;
+    }
+}
+
         width: 100%;
     }
 }

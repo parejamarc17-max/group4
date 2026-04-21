@@ -1,0 +1,284 @@
+/* ========================================
+   BUTTON STYLES
+   ======================================== */
+
+button,
+.btn,
+input[type="submit"],
+input[type="button"] {
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* ========================================
+   PRIMARY BUTTONS
+   ======================================== */
+
+button[type="submit"],
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+button[type="submit"]:hover,
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+button[type="submit"]:active,
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   ACCENT BUTTONS (Orange)
+   ======================================== */
+
+.btn-accent,
+.btn-orange {
+    background: var(--accent-color);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-accent:hover,
+.btn-orange:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+/* ========================================
+   DANGER BUTTONS (Delete/Fire)
+   ======================================== */
+
+.btn-danger,
+.btn-delete,
+.fire-warning {
+    background: var(--danger-color);
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-delete:hover,
+.fire-warning:hover {
+    background: #c62c2c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+}
+
+/* Delete as link */
+.fire-warning {
+    background: none;
+    color: var(--danger-color);
+    padding: 0;
+    text-decoration: underline;
+}
+
+.fire-warning:hover {
+    background: none;
+    color: #c62c2c;
+}
+
+/* ========================================
+   SUCCESS BUTTONS (Approve/Green)
+   ======================================== */
+
+.btn-success,
+.btn-approve {
+    background: var(--success-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover,
+.btn-approve:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* ========================================
+   REJECT BUTTONS (Red warning)
+   ======================================== */
+
+.btn-reject {
+    background: #ef4444;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-reject:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* ========================================
+   LOGOUT BUTTON
+   ======================================== */
+
+.logout-btn {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: white !important;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-size: 0.95rem;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* ========================================
+   SECONDARY BUTTONS
+   ======================================== */
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   LINK BUTTONS (Text only)
+   ======================================== */
+
+.btn-link {
+    background: none;
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* ========================================
+   BUTTON SIZES
+   ======================================== */
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+.btn-large {
+    padding: 16px 32px;
+    font-size: 1.1rem;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* ========================================
+   BUTTON GROUPS
+   ======================================== */
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-group.vertical {
+    flex-direction: column;
+}
+
+.btn-group.centered {
+    justify-content: center;
+}
+
+/* ========================================
+   DISABLED BUTTONS
+   ======================================== */
+
+button:disabled,
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+button:disabled:hover,
+.btn:disabled:hover {
+    box-shadow: none;
+}
+
+/* ========================================
+   RESPONSIVE BUTTONS
+   ======================================== */
+
+@media (max-width: 768px) {
+    button,
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn-group.vertical {
+        flex-direction: column;
+    }
+}
