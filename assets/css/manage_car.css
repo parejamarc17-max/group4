@@ -1,0 +1,153 @@
+/* Manage Car Styles */
+
+.car-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.car-form-grid input,
+.car-form-grid select,
+.car-form-grid textarea {
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.car-form-grid input:focus,
+.car-form-grid select:focus,
+.car-form-grid textarea:focus {
+    outline: none;
+    border-color: #ff6b00;
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+}
+
+.form-file-input {
+    padding: 12px;
+    border: 2px dashed #ff6b00;
+    border-radius: 8px;
+    background: rgba(255, 107, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-file-input:hover {
+    background: rgba(255, 107, 0, 0.1);
+    border-color: #e55a00;
+}
+
+.car-image-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid #e5e7eb;
+    margin: 10px 0;
+}
+
+.car-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.car-list-table th,
+.car-list-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.car-list-table th {
+    background: linear-gradient(135deg, #ff6b00 0%, #e55a00 100%);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.car-list-table tbody tr:hover {
+    background: #fff3e0;
+}
+
+.car-image-cell {
+    max-width: 100px;
+}
+
+.car-image-cell img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.car-action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.car-btn-edit,
+.car-btn-delete {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.car-btn-edit {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: white;
+}
+
+.car-btn-edit:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.car-btn-delete {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+.car-btn-delete:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+@media (max-width: 1200px) {
+    .car-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .car-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .car-list-table {
+        font-size: 0.9rem;
+    }
+
+    .car-list-table th,
+    .car-list-table td {
+        padding: 8px;
+    }
+
+    .car-action-buttons {
+        flex-direction: column;
+    }
+
+    .car-btn-edit,
+    .car-btn-delete {
+        width: 100%;
+    }
+}
