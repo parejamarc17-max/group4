@@ -70,7 +70,7 @@ $users = $pdo->query("SELECT * FROM users ORDER BY id DESC")->fetchAll();
     <a href="rentals.php" class="btn-nav">📅 Rentals</a>
     <a href="products.php" class="btn-nav">📦 Products</a>
     <a href="sales.php" class="btn-nav">💰 Sales</a>
-    <a href="users.php" class="btn-nav">👥 Workers</a>
+    <a href="workers.php" class="btn-nav">👥 Workers</a>
     <a href="pending_workers.php" class="btn-nav">👷 Pending Workers</a>
     <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
 </div>
@@ -80,10 +80,10 @@ $users = $pdo->query("SELECT * FROM users ORDER BY id DESC")->fetchAll();
 <div class="dashboard">
 
     <div class="main">
-        <h1>👥 User Management</h1>
+        <h1>👥 Worker Management</h1>
         
         <div class="panel">
-            <h3>Add New User</h3>
+            <h3>Update Worker</h3>
             <?php if(isset($success)): ?><p style="color:green;"><?= $success ?></p><?php endif; ?>
             <form method="POST">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
@@ -99,30 +99,31 @@ $users = $pdo->query("SELECT * FROM users ORDER BY id DESC")->fetchAll();
         </div>
         
         <div class="panel">
-            <h3>User List</h3>
+            <h3>Workers List</h3>
             <table>
                 <thead><tr><th>Username</th><th>Full Name</th><th>Email</th><th>Role</th><th>Action</th></tr></thead>
                 <tbody>
-                    <?php foreach($users as $u): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($u['username']) ?></td>
-                        <td><?= htmlspecialchars($u['full_name']) ?></td>
-                        <td><?= htmlspecialchars($u['email']) ?></td>
-                        <td><?= $u['role'] ?></td>
-                        <td><?php if($u['id'] != $_SESSION['user_id']): ?>
-                            <form method="POST" style="display:inline;" onsubmit="return confirm('Delete?')">
-                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-                                <input type="hidden" name="delete" value="<?= $u['id'] ?>">
-                                <button type="submit" style="color:red; background:none; border:none; cursor:pointer;">Delete</button>
-                            </form>
-                        <?php else: ?>Current<?php endif; ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                   <?php foreach($users as $u): ?>
+    <?php if ($u['role'] !== 'admin' && $u['role'] !== 'customer'): ?>
+        <tr>
+            <td><?= htmlspecialchars($u['username']) ?></td>
+            <td><?= htmlspecialchars($u['full_name']) ?></td>
+            <td><?= htmlspecialchars($u['email']) ?></td>
+            <td><?= htmlspecialchars($u['role']) ?></td>
+            <td>
+                <?php if($u['id'] != $_SESSION['user_id']): ?>
+                    <form method="POST" style="display:inline;" onsubmit="return confirm('Delete?')">
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                        <input type="hidden" name="delete" value="<?= $u['id'] ?>">
+                        <button type="submit" style="color:red; background:none; border:none; cursor:pointer;">Delete</button>
+                    </form>
+                <?php else: ?>
+                    Current
+                <?php endif; ?>
+            </td>
+        </tr>
+    <?php endif; ?>
+<?php endforeach; ?>
 
 <script>
 function toggleMenuAdmin() {
