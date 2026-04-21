@@ -28,8 +28,7 @@ $error = '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Cars</title>
-
+    <title>Vehicle's</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
@@ -92,60 +91,7 @@ $error = '';
             <form method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
-                <div class="form-grid">
-                    <div class="form-group full">
-                        <label for="image">Car Image</label>
-
-                        <div class="image-upload-box">
-                            <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" required>
-
-                            <div class="image-preview-box" id="imagePreviewBox">
-                                <img id="previewImage" src="" alt="Car preview" style="display:none;">
-                                <span id="previewText">Image preview will appear here</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="car_name">Car Name</label>
-                        <input type="text" id="car_name" name="car_name" required value="<?= htmlspecialchars($_POST['car_name'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="brand">Brand</label>
-                        <input type="text" id="brand" name="brand" value="<?= htmlspecialchars($_POST['brand'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="model">Model</label>
-                        <input type="text" id="model" name="model" value="<?= htmlspecialchars($_POST['model'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="year">Year</label>
-                        <input type="number" id="year" name="year" value="<?= htmlspecialchars($_POST['year'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="plate_number">Plate Number</label>
-                        <input type="text" id="plate_number" name="plate_number" required value="<?= htmlspecialchars($_POST['plate_number'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="price_per_day">Price/Day ($)</label>
-                        <input type="number" step="0.01" id="price_per_day" name="price_per_day" required value="<?= htmlspecialchars($_POST['price_per_day'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group full">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description" rows="3"><?= htmlspecialchars($_POST['description'] ?? '') ?></textarea>
-                    </div>
-                </div>
-
-                <button type="submit" name="add" class="btn-submit">Add Car</button>
-            </form>
-        </div>
-
+            
         <div class="table-wrap">
             <table>
                 <thead>
