@@ -55,7 +55,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
                 <span class="username">
                     <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
                 </span>
-                <a href="../p_login/logout.php" class="logout-btn"> Logout</a>
+                
             </div>
         </div>
     </div>

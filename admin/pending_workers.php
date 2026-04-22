@@ -80,7 +80,7 @@ $error_msg = isset($_GET['error']) ? $_GET['error'] : null;
                 <span class="username">
                     <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
                 </span>
-                <a href="../p_login/logout.php" class="logout-btn"> Logout</a>
+                
             </div>
         </div>
     </div>

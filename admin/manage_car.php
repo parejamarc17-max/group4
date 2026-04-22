@@ -23,94 +23,7 @@ $success = '';
 $error = '';
 
 // ADD CAR
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
-    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
-        die('Invalid CSRF token');
-    }
 
-    $carName = trim($_POST['car_name'] ?? '');
-    $brand = trim($_POST['brand'] ?? '');
-    $model = trim($_POST['model'] ?? '');
-    $year = trim($_POST['year'] ?? '');
-    $plateNumber = trim($_POST['plate_number'] ?? '');
-    $pricePerDay = trim($_POST['price_per_day'] ?? '');
-    $category = trim($_POST['category'] ?? '');
-    $description = trim($_POST['description'] ?? '');
-    
-    // Fields that exist in your database
-    $transmission = trim($_POST['transmission'] ?? '');
-    $fuelType = trim($_POST['fuel_type'] ?? '');
-    $seatingCapacity = trim($_POST['seating_capacity'] ?? '');
-    $color = trim($_POST['color'] ?? '');
-    $insuranceInfo = trim($_POST['insurance_info'] ?? '');
-    $location = trim($_POST['location'] ?? '');
-
-    if ($carName === '' || $plateNumber === '' || $pricePerDay === '') {
-        $error = "Please fill in all required fields.";
-    } else {
-        $imageName = null;
-
-        // IMAGE UPLOAD
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-            $fileTmp = $_FILES['image']['tmp_name'];
-            $fileSize = $_FILES['image']['size'];
-            $fileType = mime_content_type($fileTmp);
-
-            $allowedTypes = [
-                'image/jpeg' => 'jpg',
-                'image/png'  => 'png',
-                'image/webp' => 'webp'
-            ];
-
-            if (!array_key_exists($fileType, $allowedTypes)) {
-                $error = "Invalid file type. Only JPG, PNG, and WEBP are allowed.";
-            } elseif ($fileSize > 2 * 1024 * 1024) {
-                $error = "File too large. Max 2MB allowed.";
-            } else {
-                $imageName = uniqid("car_", true) . "." . $allowedTypes[$fileType];
-
-                if (!move_uploaded_file($fileTmp, $uploadDir . $imageName)) {
-                    $error = "Failed to upload image.";
-                }
-            }
-        } else {
-            $error = "Please upload a car image.";
-        }
-
-        if ($error === '') {
-            // INSERT matching your 18-column table (excluding id and created_at which auto-generate)
-            $stmt = $pdo->prepare("INSERT INTO car 
-                (image, car_name, brand, model, year, plate_num, price_per_day, category, description, 
-                 transmission, fuel_type, seating_capacity, color, insurance_info, location, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,
-                        ?, ?, ?, ?, ?, ?, 'available')");
-
-            if ($stmt->execute([
-                $imageName,
-                $carName,
-                $brand,
-                $model,
-                $year !== '' ? $year : null,
-                $plateNumber,
-                $pricePerDay,
-                $category,
-                $description,
-                $transmission,
-                $fuelType,
-                $seatingCapacity !== '' ? $seatingCapacity : null,
-                $color,
-                $insuranceInfo,
-                $location
-            ])) {
-                $success = "Car added successfully!";
-                header("Location: manage_car.php");
-                exit();
-            } else {
-                $error = "Failed to add car to database.";
-            }
-        }
-    }
-}
 
 // DELETE
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
@@ -223,6 +136,7 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
         .table-wrap {
             overflow-x: auto;
             margin-top: 30px;
+            color: #000000;
         }
         
         table {
@@ -237,7 +151,7 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
         }
         
         th {
-            background: #f5f5f5;
+            background: #242421;
             font-weight: 600;
         }
         
@@ -314,14 +228,14 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
                 <span></span>
                 <span></span>
             </div>
-            <h2> Manage Cars</h2>
+            <h2> Automobile</h2>
         </div>
         <div class="header-right">
             <div class="user-section">
                 <span class="username">
                     <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
                 </span>
-                <a href="../p_login/logout.php" class="logout-btn"> Logout</a>
+                
             </div>
         </div>
     </div>
@@ -344,153 +258,14 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
 
 <div class="dashboard">
     <div class="main">
-        <h1> Manage Fleet</h1>
+       
 
-        <div class="form-container">
-            <h3>Add New Car</h3>
+        
 
-            <?php if ($success): ?>
-                <div class="alert-success"><?= htmlspecialchars($success) ?></div>
-            <?php endif; ?>
-
-            <?php if ($error): ?>
-                <div class="alert-error"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
-
-            <form method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
-
-                <div class="form-grid">
-                    <!-- Basic Information Section -->
-                    <div class="form-group full">
-                        <h4 style="margin: 10px 0; color: #667eea;"> Basic Information</h4>
-                    </div>
                     
-                    <div class="form-group full">
-                        <label for="image">Car Image *</label>
-                        <div class="image-upload-box">
-                            <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" required>
-                            <div class="image-preview-box" id="imagePreviewBox">
-                                <img id="previewImage" src="" alt="Car preview" style="display:none;">
-                                <span id="previewText">Image preview will appear here</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="car_name">Car Name *</label>
-                        <input type="text" id="car_name" name="car_name" required value="<?= htmlspecialchars($_POST['car_name'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="brand">Brand</label>
-                        <input type="text" id="brand" name="brand" value="<?= htmlspecialchars($_POST['brand'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="model">Model</label>
-                        <input type="text" id="model" name="model" value="<?= htmlspecialchars($_POST['model'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="year">Year</label>
-                        <input type="number" id="year" name="year" value="<?= htmlspecialchars($_POST['year'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="plate_number">Plate Number *</label>
-                        <input type="text" id="plate_number" name="plate_number" required value="<?= htmlspecialchars($_POST['plate_number'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="price_per_day">Price/Day ($) *</label>
-                        <input type="number" step="0.01" id="price_per_day" name="price_per_day" required value="<?= htmlspecialchars($_POST['price_per_day'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <select id="category" name="category">
-                            <option value="">Select Category</option>
-                            <option value="Economy" <?= (isset($_POST['category']) && $_POST['category'] == 'Economy') ? 'selected' : '' ?>>Economy</option>
-                            <option value="Compact" <?= (isset($_POST['category']) && $_POST['category'] == 'Compact') ? 'selected' : '' ?>>Compact</option>
-                            <option value="SUV" <?= (isset($_POST['category']) && $_POST['category'] == 'SUV') ? 'selected' : '' ?>>SUV</option>
-                            <option value="Luxury" <?= (isset($_POST['category']) && $_POST['category'] == 'Luxury') ? 'selected' : '' ?>>Luxury</option>
-                            <option value="Sports" <?= (isset($_POST['category']) && $_POST['category'] == 'Sports') ? 'selected' : '' ?>>Sports</option>
-                            <option value="Van" <?= (isset($_POST['category']) && $_POST['category'] == 'Van') ? 'selected' : '' ?>>Van</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group full">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description" rows="3"><?= htmlspecialchars($_POST['description'] ?? '') ?></textarea>
-                    </div>
-
-                    <!-- Car Specifications Section -->
-                    <div class="form-group full">
-                        <h4 style="margin: 20px 0 10px 0; color: #667eea;"> Car Specifications</h4>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="transmission">Transmission Type</label>
-                        <select id="transmission" name="transmission">
-                            <option value="">Select Transmission</option>
-                            <option value="Automatic" <?= (isset($_POST['transmission']) && $_POST['transmission'] == 'Automatic') ? 'selected' : '' ?>>Automatic</option>
-                            <option value="Manual" <?= (isset($_POST['transmission']) && $_POST['transmission'] == 'Manual') ? 'selected' : '' ?>>Manual</option>
-                            <option value="CVT" <?= (isset($_POST['transmission']) && $_POST['transmission'] == 'CVT') ? 'selected' : '' ?>>CVT</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fuel_type">Fuel Type</label>
-                        <select id="fuel_type" name="fuel_type">
-                            <option value="">Select Fuel Type</option>
-                            <option value="Gasoline" <?= (isset($_POST['fuel_type']) && $_POST['fuel_type'] == 'Gasoline') ? 'selected' : '' ?>>Gasoline</option>
-                            <option value="Diesel" <?= (isset($_POST['fuel_type']) && $_POST['fuel_type'] == 'Diesel') ? 'selected' : '' ?>>Diesel</option>
-                            <option value="Hybrid" <?= (isset($_POST['fuel_type']) && $_POST['fuel_type'] == 'Hybrid') ? 'selected' : '' ?>>Hybrid</option>
-                            <option value="Electric" <?= (isset($_POST['fuel_type']) && $_POST['fuel_type'] == 'Electric') ? 'selected' : '' ?>>Electric</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="seating_capacity">Seating Capacity</label>
-                        <select id="seating_capacity" name="seating_capacity">
-                            <option value="">Select Capacity</option>
-                            <option value="2" <?= (isset($_POST['seating_capacity']) && $_POST['seating_capacity'] == '2') ? 'selected' : '' ?>>2 Seats</option>
-                            <option value="4" <?= (isset($_POST['seating_capacity']) && $_POST['seating_capacity'] == '4') ? 'selected' : '' ?>>4 Seats</option>
-                            <option value="5" <?= (isset($_POST['seating_capacity']) && $_POST['seating_capacity'] == '5') ? 'selected' : '' ?>>5 Seats</option>
-                            <option value="7" <?= (isset($_POST['seating_capacity']) && $_POST['seating_capacity'] == '7') ? 'selected' : '' ?>>7 Seats</option>
-                            <option value="8" <?= (isset($_POST['seating_capacity']) && $_POST['seating_capacity'] == '8') ? 'selected' : '' ?>>8 Seats</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="color">Color</label>
-                        <input type="text" id="color" name="color" placeholder="e.g., Red, Black, White" value="<?= htmlspecialchars($_POST['color'] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="insurance_info">Insurance Info</label>
-                        <select id="insurance_info" name="insurance_info">
-                            <option value="">Select Insurance Type</option>
-                            <option value="Full Coverage" <?= (isset($_POST['insurance_info']) && $_POST['insurance_info'] == 'Full Coverage') ? 'selected' : '' ?>>Full Coverage</option>
-                            <option value="Limited" <?= (isset($_POST['insurance_info']) && $_POST['insurance_info'] == 'Limited') ? 'selected' : '' ?>>Limited</option>
-                            <option value="Third Party" <?= (isset($_POST['insurance_info']) && $_POST['insurance_info'] == 'Third Party') ? 'selected' : '' ?>>Third Party</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group full">
-                        <label for="location">Location / Branch</label>
-                        <input type="text" id="location" name="location" placeholder="e.g., Main Branch, Airport Branch" value="<?= htmlspecialchars($_POST['location'] ?? '') ?>">
-                    </div>
-                </div>
-
-                <button type="submit" name="add" class="btn-submit">➕ Add Car</button>
-            </form>
-        </div>
-
         <!-- Cars List Table -->
         <div class="table-wrap">
-            <h3> Current Fleet</h3>
+            <h3> Car list</h3>
             <table>
                 <thead>
                     <tr>

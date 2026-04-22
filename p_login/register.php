@@ -97,12 +97,12 @@ body {
 
     <div class="register-container">
         <a href="register_customer.php" class="register-option">
-            <h3>👤 Customer</h3>
-            <p>Register to browse and rent cars بسهولة</p>
+            <h3> Customer</h3>
+            <p>Register to browse and rent cars</p>
         </a>
 
         <a href="register_worker.php" class="register-option">
-            <h3>👷 Apply for Work</h3>
+            <h3> Apply for Work</h3>
             <p>Join our team and manage vehicles</p>
         </a>
     </div>

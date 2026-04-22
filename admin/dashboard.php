@@ -42,7 +42,7 @@ $total_users = $stmt->fetch()['count'];
                 <span class="username">
                     <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
                 </span>
-                <a href="../p_login/logout.php" class="logout-btn"> Logout</a>
+                
             </div>
         </div>
     </div>

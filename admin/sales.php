@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_sale'])) {
                 <span class="username">
                     <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
                 </span>
-                <a href="../p_login/logout.php" class="logout-btn"> Logout</a>
+                
             </div>
         </div>
     </div>
