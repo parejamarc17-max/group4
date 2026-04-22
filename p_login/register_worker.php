@@ -34,6 +34,10 @@
         </div>
 
         <div class="form-group">
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+        </div>
+
+        <div class="form-group">
             <input type="text" name="phone" placeholder="Phone Number" required>
         </div>
 

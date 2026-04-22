@@ -39,9 +39,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Log worker login activity
         if ($user['role'] == 'worker') {
-            $ip_address = $_SERVER['REMOTE_ADDR'] ?? '';
-            $stmt = $pdo->prepare("INSERT INTO worker_activity (user_id, activity_type, ip_address) VALUES (?, 'login', ?)");
-            $stmt->execute([$user['id'], $ip_address]);
+            try {
+                // Create worker_activity table if it doesn't exist
+                $create_table_sql = "CREATE TABLE IF NOT EXISTS worker_activity (
+                  id INT AUTO_INCREMENT PRIMARY KEY,
+                  user_id INT NOT NULL,
+                  activity_type ENUM('login', 'logout') NOT NULL,
+                  activity_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                  ip_address VARCHAR(45) DEFAULT NULL,
+                  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                  INDEX idx_user_id (user_id),
+                  INDEX idx_activity_time (activity_time)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
+                $pdo->exec($create_table_sql);
+                
+                // Insert login activity
+                $ip_address = $_SERVER['REMOTE_ADDR'] ?? '';
+                $stmt = $pdo->prepare("INSERT INTO worker_activity (user_id, activity_type, ip_address) VALUES (?, 'login', ?)");
+                $stmt->execute([$user['id'], $ip_address]);
+            } catch(PDOException $e) {
+                // Silently continue even if activity logging fails
+                error_log("Worker activity logging failed: " . $e->getMessage());
+            }
         }
 
         if ($user['role'] == 'admin') {

@@ -21,6 +21,6 @@ if ($check && $check->rowCount() > 0) {
     $stmt->execute([$user_id, $phone, $address]);
 }
 
-header('Location: ../p\ login/login.php?message=Registered successfully');
+header('Location: ../p_login/login.php?message=Registered successfully');
 exit();
 ?>

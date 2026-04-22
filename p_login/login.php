@@ -9,7 +9,7 @@ if (isset($_SESSION['user_id'])) {
     } elseif ($_SESSION['role'] === 'worker') {
         header("Location: ../worker.php");
     } else {
-        header("Location: ..worker/worker_dashboard.php");
+        header("Location: ../worker/dashboard.php");
     }
     exit();
 }
