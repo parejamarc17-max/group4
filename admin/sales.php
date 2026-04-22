@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_sale'])) {
 </header>
 
 <div class="side-menu" id="adminMenu">
-    <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
+    <img src="../assets/images/logo.png" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
     <h2> DRIVE ADMIN</h2>
     <a href="dashboard.php" class="btn-nav"> Dashboard</a>
     <a href="manage_car.php" class="btn-nav"> Manage Cars</a>
