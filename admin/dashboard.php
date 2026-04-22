@@ -69,7 +69,9 @@ $total_users = $stmt->fetch()['count'];
         <div class="cards">
             <div class="card"> Total Cars<br><h2><?= $total_cars ?></h2></div>
             <div class="card"> Active Rentals<br><h2><?= $active_rentals ?></h2></div>
-            <div class="card">💰 Revenue<br><h2>$<?= number_format($revenue, 2) ?></h2></div>
+           <div class="card">💰 Revenue <h2>₱<?= number_format($revenue, 2) ?></h2>
+</div>
+
             <div class="card">👥 Users<br><h2><?= $total_users ?></h2></div>
         </div>
     </div>

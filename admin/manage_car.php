@@ -313,7 +313,7 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
                                         <?php endif; ?>
                                     </div>
                                 </td>
-                                <td><strong>$<?= number_format((float) $car['price_per_day'], 2) ?></strong>/day</td>
+                                <td><strong>₱<?= number_format((float) $car['price_per_day'], 2) ?></strong>/day</td>
                                 <td>
                                     <span class="status-badge <?= htmlspecialchars($car['status']) ?>">
                                         <?= htmlspecialchars($car['status']) ?>

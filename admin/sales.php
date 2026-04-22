@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_sale'])) {
                     <tr>
                         <td><?= htmlspecialchars($s['invoice_no']) ?></td>
                         <td><?= htmlspecialchars($s['customer_name']) ?></td>
-                        <td>$<?= number_format($s['grand_total'], 2) ?></td>
+                        <td>₱<?= number_format($s['grand_total'], 2) ?></td>
                         <td><?= $s['payment_method'] ?></td>
                         <td><?= $s['created_at'] ?></td>
                     </tr>

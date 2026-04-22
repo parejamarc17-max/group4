@@ -101,7 +101,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="price">Price ($)</label>
+                        <label for="price">Price (₱)</label>
                         <input type="number" id="price" name="price" step="0.01" placeholder="0.00" required>
                     </div>
                     

@@ -232,7 +232,7 @@ tr:hover {
 <td><?= htmlspecialchars($rental['car_name'] ?? 'N/A') ?></td>
 <td><?= $rental['rental_date'] ?></td>
 <td><?= $rental['return_date'] ?></td>
-<td>$<?= number_format($rental['total_cost'], 2) ?></td>
+<td>₱<?= number_format($rental['total_cost'], 2) ?></td>
 
 <td>
 
