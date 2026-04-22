@@ -1,0 +1,191 @@
+/* Register Page Styles - Unified CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Container */
+.register-form,
+.register-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+.register-form h2,
+.register-header h2 {
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 1.6rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.register-header p {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 0;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid #e1e5e9;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    border-color: #333;
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* Button */
+button[type="submit"],
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #333;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    margin-top: 5px;
+}
+
+button[type="submit"]:hover,
+button:hover {
+    background: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+button[type="submit"]:active,
+button:active {
+    transform: translateY(0);
+}
+
+/* Footer links */
+.links,
+.register-form a:last-of-type {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.85rem;
+}
+
+.links a,
+.register-form a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s ease;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.links a:hover,
+.register-form a:hover {
+    color: #555;
+    text-decoration: underline;
+}
+
+.links a:before {
+    content: "← ";
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .register-form,
+    .register-box {
+        padding: 15px;
+    }
+
+    .register-form h2,
+    .register-header h2 {
+        font-size: 1.4rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    textarea {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    button[type="submit"],
+    button {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+}

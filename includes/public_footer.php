@@ -5,8 +5,8 @@
             <p>Premium car rental service with nationwide delivery</p>
             <div class="social-links">
                 <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/paintvanta?igsh=MWdhbW92dGpiZHUwYg==" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:carrental762000@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
         <div class="footer-section">
@@ -22,7 +22,7 @@
             <h4>Contact</h4>
             <ul>
                 <li><i class="fas fa-phone"></i>  0912 345 6789</li>
-                <li><i class="fas fa-envelope"></i> support@drivego.ph</li>
+                <li><i class="fas fa-envelope"></i> carrental762000@gmail.com</li>
                 <li><i class="fas fa-map-marker-alt"></i> davao oriental, Philippines</li>
             </ul>
         </div>

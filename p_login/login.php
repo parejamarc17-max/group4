@@ -65,7 +65,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     </p>
     <!-- ✅ Back link below Register -->
     <p style="text-align:center; margin-top:10px; color:#666;">
-    <a href="login.php" style="color:#ff6b00; font-weight:bold;">← Back to Home</a>
+    <a href="../index.php" style="color:#ff6b00; font-weight:bold;">← Back to Home</a>
     </p>
 </div>
 </body>
