@@ -69,8 +69,8 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
     <a href="rentals.php" class="btn-nav">📅 Rentals</a>
     <a href="products.php" class="btn-nav">📦 Products</a>
     <a href="sales.php" class="btn-nav">💰 Sales</a>
-    <a href="users.php" class="btn-nav">👥 Users</a>
-    <a href="pending_workers.php" class="btn-nav">👷 Pending Workers</a>
+    <a href="worker_list.php" class="btn-nav">👷 Worker List</a>
+    <a href="pending_workers.php" class="btn-nav">⏳ Pending Workers</a>
     <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
 </div>
 

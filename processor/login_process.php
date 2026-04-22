@@ -37,6 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['username'] = $username;
         $_SESSION['full_name'] = $user['full_name'] ?? '';
 
+        // Log worker login activity
+        if ($user['role'] == 'worker') {
+            $ip_address = $_SERVER['REMOTE_ADDR'] ?? '';
+            $stmt = $pdo->prepare("INSERT INTO worker_activity (user_id, activity_type, ip_address) VALUES (?, 'login', ?)");
+            $stmt->execute([$user['id'], $ip_address]);
+        }
+
         if ($user['role'] == 'admin') {
             header('Location: ../admin/dashboard.php');
         } elseif ($user['role'] == 'worker') {

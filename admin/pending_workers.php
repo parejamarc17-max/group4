@@ -9,20 +9,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
 
     if ($action === 'approve') {
-        $stmt = $pdo->prepare("UPDATE worker_applications SET status = 'approved' WHERE id = ?");
-        $stmt->execute([$application_id]);
+        // Get worker application details
+        $app_stmt = $pdo->prepare("SELECT * FROM worker_applications WHERE id = ?");
+        $app_stmt->execute([$application_id]);
+        $application = $app_stmt->fetch();
+
+        if ($application) {
+            // Create a user account for the approved worker
+            $username = strtolower(str_replace(' ', '_', $application['full_name'])) . '_' . uniqid();
+            $temp_password = bin2hex(random_bytes(4)); // Temporary password
+            $hashed_password = password_hash($temp_password, PASSWORD_DEFAULT);
+
+            try {
+                $user_stmt = $pdo->prepare("INSERT INTO users (username, password, full_name, email, phone, role) VALUES (?, ?, ?, ?, ?, 'worker')");
+                $user_stmt->execute([$username, $hashed_password, $application['full_name'], $application['full_name'] . '@worker.local', $application['phone']]);
+                
+                $user_id = $pdo->lastInsertId();
+
+                // Update worker_applications with user_id and approved status
+                $update_stmt = $pdo->prepare("UPDATE worker_applications SET status = 'approved', user_id = ? WHERE id = ?");
+                $update_stmt->execute([$user_id, $application_id]);
+
+                header('Location: worker_list.php?approved=1');
+                exit();
+            } catch (PDOException $e) {
+                $error = "Error creating worker account: " . $e->getMessage();
+            }
+        }
     } elseif ($action === 'reject') {
         $stmt = $pdo->prepare("UPDATE worker_applications SET status = 'rejected' WHERE id = ?");
         $stmt->execute([$application_id]);
+        
+        header('Location: pending_workers.php?rejected=1');
+        exit();
     }
-
-    header('Location: pending_workers.php');
-    exit();
 }
 
 // Get pending applications
 $stmt = $pdo->query("SELECT * FROM worker_applications WHERE status = 'pending' ORDER BY created_at DESC");
 $applications = $stmt->fetchAll();
+
+// Check for success/error messages
+$rejected_msg = isset($_GET['rejected']) ? "Application rejected." : null;
+$error_msg = isset($_GET['error']) ? $_GET['error'] : null;
 ?>
 
 <!DOCTYPE html>
@@ -65,8 +94,8 @@ $applications = $stmt->fetchAll();
     <a href="rentals.php" class="btn-nav">📅 Rentals</a>
     <a href="products.php" class="btn-nav">📦 Products</a>
     <a href="sales.php" class="btn-nav">💰 Sales</a>
-    <a href="users.php" class="btn-nav">👥 Users</a>
-    <a href="pending_workers.php" class="btn-nav">👷 Pending Workers</a>
+    <a href="worker_list.php" class="btn-nav">👷 Worker List</a>
+    <a href="pending_workers.php" class="btn-nav">⏳ Pending Workers</a>
     <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
 </div>
 
@@ -76,6 +105,18 @@ $applications = $stmt->fetchAll();
 
     <div class="main">
         <h1>Pending Worker Applications</h1>
+
+        <?php if(isset($rejected_msg)): ?>
+            <p style="color:#ff9800; background:#ffe0cc; padding:10px; border-radius:5px; margin-bottom:15px;">
+                ℹ️ <?= htmlspecialchars($rejected_msg) ?>
+            </p>
+        <?php endif; ?>
+
+        <?php if(isset($error_msg)): ?>
+            <p style="color:#d32f2f; background:#ffebee; padding:10px; border-radius:5px; margin-bottom:15px;">
+                ❌ <?= htmlspecialchars($error_msg) ?>
+            </p>
+        <?php endif; ?>
 
         <?php if (empty($applications)): ?>
             <p class="no-applications">No pending applications at the moment.</p>

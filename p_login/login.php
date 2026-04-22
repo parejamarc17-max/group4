@@ -9,7 +9,7 @@ if (isset($_SESSION['user_id'])) {
     } elseif ($_SESSION['role'] === 'worker') {
         header("Location: ../worker.php");
     } else {
-        header("Location: ../worker.php");
+        header("Location: ..worker/worker_dashboard.php");
     }
     exit();
 }
@@ -62,6 +62,10 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
     <p style="text-align:center; margin-top:20px; color:#666;">
         <a href="register.php" style="color: #667eea; font-weight: bold;">Register an Account</a>
+    </p>
+    <!-- ✅ Back link below Register -->
+    <p style="text-align:center; margin-top:10px; color:#666;">
+    <a href="login.php" style="color:#ff6b00; font-weight:bold;">← Back to Home</a>
     </p>
 </div>
 </body>

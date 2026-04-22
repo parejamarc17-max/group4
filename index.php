@@ -28,8 +28,7 @@ if (!isset($_SESSION['customer_logged_in']) && isset($_COOKIE['customer_email'])
 <nav class="navbar">
     <div class="nav-container">
         <div class="logo">
-            <i class="fas fa-car"></i>
-            <span>Drive<span class="highlight">Go</span></span>
+            
         </div>
         <ul class="nav-menu">
             <li><a href="#home" class="nav-link active">Home</a></li>
