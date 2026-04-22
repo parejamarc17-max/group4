@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // VALIDATE: Ensure submitted role matches actual user role
         if ($submitted_role && $submitted_role !== $user['role']) {
             // User tried to login through wrong portal (e.g., admin username through worker login)
-            $error_page = $submitted_role === 'admin' ? '../p_login/admin_login.php' : '../p_login/worker_login.php';
+            $error_page = $submitted_role === 'admin' ? '../p_login/login.php' : '../p_login/login.php';
             header("Location: {$error_page}?error=Invalid credentials for this role");
             exit();
         }
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // VALIDATE: Ensure submitted role matches hardcoded user role
         if ($submitted_role && $submitted_role !== $valid_users[$username]['role']) {
             // User tried to login through wrong portal
-            $error_page = $submitted_role === 'admin' ? '../p_login/admin_login.php' : '../p_login/worker_login.php';
+            $error_page = $submitted_role === 'admin' ? '../p_login/login.php' : '../p_login/login.php';
             header("Location: {$error_page}?error=Invalid credentials for this role");
             exit();
         }
@@ -77,9 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // If no match, redirect back with error to the unified login page by default.
     $error_page = '../p_login/login.php';
     if ($submitted_role === 'admin') {
-        $error_page = '../p_login/admin_login.php';
+        $error_page = '../p_login/login.php';
     } elseif ($submitted_role === 'worker') {
-        $error_page = '../p_login/worker_login.php';
+        $error_page = '../p_login/login.php';
     }
     header("Location: {$error_page}?error=Invalid username or password");
     exit();
