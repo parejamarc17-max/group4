@@ -20,14 +20,7 @@ if ($user_id && $user_role === 'worker') {
 session_unset();
 session_destroy();
 
-// Redirect to appropriate login page based on role
-if ($user_role === 'admin') {
-    header("Location: admin_login.php");
-} elseif ($user_role === 'worker') {
-    header("Location: worker_login.php");
-} else {
-    // Default for customers and unknown roles
-    header("Location: login.php");
-}
+// Redirect all users to main login page
+header("Location: login.php");
 exit();
 

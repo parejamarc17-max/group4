@@ -35,7 +35,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 <body>
 <div class="login-container">
     <div class="login-header">
-        <img src="../assets/images/download (4).jpg" class="logo">
+        <img src="../assets/images/logo.png" class="logo">
         <h1>CarRent System</h1>
         <p>Register First Before Login</p>
     </div>
