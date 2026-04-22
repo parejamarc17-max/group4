@@ -1,7 +1,7 @@
 <?php
 require_once '../config/auth.php';
 require_once '../config/database.php';
-requireWorker();
+requireAdmin();
 
 // CSRF token
 if (session_status() === PHP_SESSION_NONE) {
@@ -130,25 +130,49 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Cars</title>
 
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/manage_car.css">
 </head>
 
 <body>
-<div class="dashboard">
-<div class="sidebar" id="sideMenu">
-    <img src="assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;">
-    <h2>🚗 DRIVE WORKER</h2>
-    <a href="worker.php" class="btn-nav" onclick="closeMenus()">← Home</a>
-    <a href="worker_dashboard.php" class="btn-nav" onclick="closeMenus()">📊 Dashboard</a>
-    <a href="worker_manage_car.php" class="btn-nav" onclick="closeMenus()">🚘 Manage Cars</a>
-    <a href="worker_rentals.php" class="btn-nav" onclick="closeMenus()">📅 Rentals</a>
-    <a href="worker_products.php" class="btn-nav" onclick="closeMenus()">📦 Products</a>
-    <a href="worker_sales.php" class="btn-nav" onclick="closeMenus()">💰 Sales</a>
-    <a href="p_login/logout.php" class="btn-nav" onclick="closeMenus()">🚪 Logout</a>
+
+<header>
+    <div class="custom-header">
+        <div class="header-left">
+            <div class="hamburger-btn" onclick="toggleMenuAdmin()" title="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <h2>🚗 Manage Cars</h2>
+        </div>
+        <div class="header-right">
+            <div class="user-section">
+                <span class="username">
+                    <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
+                </span>
+                <a href="../p_login/logout.php" class="logout-btn">🚪 Logout</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="side-menu" id="adminMenu">
+    <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
+    <h2>🚗 DRIVE ADMIN</h2>
+    <a href="dashboard.php" class="btn-nav">📊 Dashboard</a>
+    <a href="manage_car.php" class="btn-nav">🚘 Manage Cars</a>
+    <a href="rentals.php" class="btn-nav">📅 Rentals</a>
+    <a href="products.php" class="btn-nav">📦 Products</a>
+    <a href="sales.php" class="btn-nav">💰 Sales</a>
+    <a href="users.php" class="btn-nav">👥 Users</a>
+    <a href="pending_workers.php" class="btn-nav">👷 Pending Workers</a>
+    <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
 </div>
 
+<div class="overlay" id="adminOverlay" onclick="closeMenuAdmin()"></div>
+
+    <div class="dashboard">
     <div class="main">
         <h1>🚘 Manage Fleet</h1>
 
@@ -313,5 +337,36 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
         // You can redirect to an edit page or open a modal here
     }
 </script>
+
+<script>
+function toggleMenuAdmin() {
+    const menu = document.getElementById("adminMenu");
+    const overlay = document.getElementById("adminOverlay");
+    const hamburger = document.querySelector('.hamburger-btn');
+
+    if (!menu) return;
+
+    if (menu.classList.contains("active")) {
+        menu.classList.remove("active");
+        if (overlay) overlay.classList.remove("active");
+        if (hamburger) hamburger.classList.remove('active');
+    } else {
+        menu.classList.add("active");
+        if (overlay) overlay.classList.add("active");
+        if (hamburger) hamburger.classList.add('active');
+    }
+}
+
+function closeMenuAdmin() {
+    const menu = document.getElementById("adminMenu");
+    const overlay = document.getElementById("adminOverlay");
+    const hamburger = document.querySelector('.hamburger-btn');
+
+    if (menu) menu.classList.remove("active");
+    if (overlay) overlay.classList.remove("active");
+    if (hamburger) hamburger.classList.remove('active');
+}
+</script>
+                        
 </body>
 </html>

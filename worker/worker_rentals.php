@@ -109,8 +109,6 @@ $rentals = $pdo->query("
 <title>Rental Management</title>
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/sidebar.css">
-<link rel="stylesheet" href="../assets/css/admin.css">
 
 <style>
 /* ===== TABLE FIX ===== */

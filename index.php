@@ -9,14 +9,12 @@ require_once 'config/database.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DriveGo Premium | Luxury Car Rental Philippines</title>
-    <link rel="stylesheet" href="assets/css/public.css">
+      <link rel="stylesheet" href="assets/css/public.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<?php
-session_start();
 
+<?php
 // Check for remember me cookie
 if (!isset($_SESSION['customer_logged_in']) && isset($_COOKIE['customer_email'])) {
     $_SESSION['customer_logged_in'] = true;
