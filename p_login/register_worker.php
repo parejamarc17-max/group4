@@ -4,43 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Worker Application - CarRent</title>
-    <link rel="stylesheet" href="../assets/css/register.css">
-    <style>
-        .back-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-            padding: 10px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .back-button:hover {
-            background: #667eea;
-            color: white;
-            transform: translateX(-3px);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/login.css">
 </head>
 <body>
     <a href="register.php" class="back-button">← Back</a>
     
     <div class="register-form">
         <h2>👷 Apply as Worker</h2>
-        <p style="text-align: center; color: #666; margin-bottom: 25px; font-size: 0.95rem;">
-            Apply to join our team. Your application will be reviewed by our admin team.
-        </p>
+        <p>Apply to join our team. Your application will be reviewed by our admin team.</p>
         
         <form action="../processor/register_worker_process.php" method="POST">
             <input 

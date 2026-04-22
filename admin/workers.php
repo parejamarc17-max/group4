@@ -75,14 +75,9 @@ $workers = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <title>Worker Management</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+       <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
-    <style>
-        .fire-warning {
-            color: #d32f2f;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>

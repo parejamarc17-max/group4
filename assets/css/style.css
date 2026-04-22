@@ -1,54 +1,14 @@
-/* ========================================
-   MASTER CSS FILE - IMPORTS ALL ORGANIZED CSS
-   ========================================
-   
-   This file imports all CSS files in the correct order:
-   1. Global styles & reset
-   2. Header & Navigation  
-   3. Forms
-   4. Buttons
-   5. Sidebar & Menu
-   6. Tables
-   7. Messages & Alerts
-   8. Components & Cards
-   9. Authentication
-   10. Admin Dashboard
-   11. Public Pages
-   12. Car Management
-   13. Specific Pages
-*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-@import url('globals.css');
-@import url('header.css');
-@import url('forms.css');
-@import url('buttons.css');
-@import url('sidebar.css');
-@import url('tables.css');
-@import url('messages.css');
-@import url('components.css');
-@import url('auth.css');
-@import url('admin.css');
-@import url('public.css');
-@import url('manage_car.css');
-@import url('car.css');
-@import url('register.css');
-@import url('login.css');
-
-/* ========================================
-   NOTE: INLINE STYLES MOVED TO EXTERNAL CSS
-   ========================================
-   
-   Previously inline styles have been moved to:
-   - .profile-img → forms.css
-   - .success-box → messages.css
-   - .error-box → messages.css
-   - .fire-warning → buttons.css
-   - .btn-orange → buttons.css
-   - And many more...
-   
-   All inline style attributes should be replaced with class names.
-*/
-
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1e2a3e;
+    background: #ffffff;
+}
 
 /* ================= HEADER ================= */
 header {

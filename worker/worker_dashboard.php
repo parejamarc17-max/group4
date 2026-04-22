@@ -22,8 +22,6 @@ $total_users = $stmt->fetch()['count'];
     <meta charset="UTF-8">
     <title>Worker Dashboard</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
 

@@ -1,11 +1,5 @@
-/* ========================================
-   LOGIN PAGES (login.css)
-   ======================================== 
-   Used in:
-   - p_login/login.php (Customer login)
-   - p_login/admin_login.php (Admin login)
-   - p_login/worker_login.php (Worker login)
-*/
+
+/* Login Page Styles */
 
 * {
     margin: 0;

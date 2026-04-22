@@ -131,8 +131,6 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
     <title>Manage Cars</title>
 
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
     <link rel="stylesheet" href="../assets/css/manage_car.css">
 </head>
 

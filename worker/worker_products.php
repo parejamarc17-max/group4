@@ -35,8 +35,6 @@ $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
     <meta charset="UTF-8">
     <title>Manage Products</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
 <div class="dashboard">

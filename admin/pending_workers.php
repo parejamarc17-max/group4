@@ -9,27 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
 
     if ($action === 'approve') {
-        try {
-            // Get the application details
-            $stmt = $pdo->prepare("SELECT * FROM worker_applications WHERE id = ?");
-            $stmt->execute([$application_id]);
-            $app = $stmt->fetch();
-
-            if ($app) {
-                // Create user account in users table
-                $stmt = $pdo->prepare("INSERT INTO users (username, password, full_name, email, phone, role) VALUES (?, ?, ?, ?, ?, 'worker')");
-                $stmt->execute([$app['username'], $app['password'], $app['full_name'], $app['email'], $app['phone']]);
-                
-                // Get the newly created user ID
-                $user_id = $pdo->lastInsertId();
-                
-                // Update worker_applications status and link to user
-                $stmt = $pdo->prepare("UPDATE worker_applications SET status = 'approved', user_id = ? WHERE id = ?");
-                $stmt->execute([$user_id, $application_id]);
-            }
-        } catch (PDOException $e) {
-            die("Error approving worker: " . $e->getMessage());
-        }
+        $stmt = $pdo->prepare("UPDATE worker_applications SET status = 'approved' WHERE id = ?");
+        $stmt->execute([$application_id]);
     } elseif ($action === 'reject') {
         $stmt = $pdo->prepare("UPDATE worker_applications SET status = 'rejected' WHERE id = ?");
         $stmt->execute([$application_id]);
@@ -80,11 +61,11 @@ $applications = $stmt->fetchAll();
     <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
     <h2>🚗 DRIVE ADMIN</h2>
     <a href="dashboard.php" class="btn-nav">📊 Dashboard</a>
-    <a href="car_list.php" class="btn-nav">🚘 Automobile</a>
+    <a href="manage_car.php" class="btn-nav">🚘 Manage Cars</a>
     <a href="rentals.php" class="btn-nav">📅 Rentals</a>
     <a href="products.php" class="btn-nav">📦 Products</a>
     <a href="sales.php" class="btn-nav">💰 Sales</a>
-    <a href="workers.php" class="btn-nav">👥 Workers</a>
+    <a href="users.php" class="btn-nav">👥 Users</a>
     <a href="pending_workers.php" class="btn-nav">👷 Pending Workers</a>
     <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
 </div>
@@ -103,11 +84,8 @@ $applications = $stmt->fetchAll();
                 <?php foreach ($applications as $app): ?>
                     <div class="application-card">
                         <h3><?php echo htmlspecialchars($app['full_name']); ?></h3>
-                        <p><strong>Username:</strong> <?php echo htmlspecialchars($app['username']); ?></p>
-                        <p><strong>Email:</strong> <?php echo htmlspecialchars($app['email']); ?></p>
                         <p><strong>Phone:</strong> <?php echo htmlspecialchars($app['phone']); ?></p>
                         <p><strong>Address:</strong> <?php echo htmlspecialchars($app['address']); ?></p>
-                        <p><strong>Experience:</strong> <?php echo htmlspecialchars($app['experience']); ?></p>
                         <p><strong>Status:</strong> <?php echo htmlspecialchars($app['status']); ?></p>
                         <p><strong>Applied:</strong> <?php echo $app['created_at']; ?></p>
 
