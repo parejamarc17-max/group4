@@ -1,6 +1,13 @@
 /* ========================================
-   MESSAGE & ALERT STYLES
-   ======================================== */
+   MESSAGE & ALERT STYLES (messages.css)
+   ======================================== 
+   Used in: All pages with alerts/messages
+   - admin/workers.php (Success/error messages)
+   - admin/pending_workers.php (Approval messages)
+   - admin/car_list.php (Add/edit messages)
+   - p_login/ pages (Registration success/errors)
+   - All form submission feedback
+*/
 
 /* ========================================
    SUCCESS MESSAGES

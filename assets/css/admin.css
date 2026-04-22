@@ -1,6 +1,10 @@
 /* ========================================
-   ADMIN DASHBOARD STYLES
-   ======================================== */
+   ADMIN DASHBOARD STYLES (admin.css)
+   ======================================== 
+   Used in: Admin pages
+   - admin/dashboard.php (Main dashboard with cards)
+   - admin/admin.php (Admin main page)
+*/
 
 .dashboard {
     display: flex;

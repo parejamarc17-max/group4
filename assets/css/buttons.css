@@ -1,6 +1,19 @@
 /* ========================================
-   BUTTON STYLES
-   ======================================== */
+   BUTTON STYLES (buttons.css)
+   ======================================== 
+   Used in: All pages
+   - admin/ pages (workers.php, pending_workers.php, dashboard.php, etc.)
+   - worker/ pages (dashboard, manage_car, rentals, sales)
+   - p_login/ pages (login, register)
+   - index.php, car.php
+   
+   Contains styles for:
+   - Primary buttons (submit forms)
+   - Accent/Orange buttons (Add, Edit actions)
+   - Danger buttons (Delete, Fire actions)
+   - Success buttons (Approve actions)
+   - Logout buttons
+*/
 
 button,
 .btn,
@@ -16,7 +29,10 @@ input[type="button"] {
 
 /* ========================================
    PRIMARY BUTTONS
-   ======================================== */
+   ======================================== 
+   Used in: Forms across all pages
+   Examples: Login, Register, Add Worker, Add Car forms
+*/
 
 button[type="submit"],
 .btn-primary {
@@ -44,7 +60,10 @@ button[type="submit"]:active,
 
 /* ========================================
    ACCENT BUTTONS (Orange)
-   ======================================== */
+   ======================================== 
+   Used in: admin/workers.php, admin/car_list.php, admin/products.php
+   Examples: Add Worker, Add Car, Edit buttons
+*/
 
 .btn-accent,
 .btn-orange {
@@ -67,7 +86,10 @@ button[type="submit"]:active,
 
 /* ========================================
    DANGER BUTTONS (Delete/Fire)
-   ======================================== */
+   ======================================== 
+   Used in: admin/workers.php (Fire Worker), admin/car_list.php (Delete Car)
+   Examples: Fire Worker, Delete buttons
+*/
 
 .btn-danger,
 .btn-delete,
@@ -106,7 +128,10 @@ button[type="submit"]:active,
 
 /* ========================================
    SUCCESS BUTTONS (Approve/Green)
-   ======================================== */
+   ======================================== 
+   Used in: admin/pending_workers.php (Approve Worker)
+   Examples: Approve buttons
+*/
 
 .btn-success,
 .btn-approve {
@@ -150,7 +175,10 @@ button[type="submit"]:active,
 
 /* ========================================
    LOGOUT BUTTON
-   ======================================== */
+   ======================================== 
+   Used in: Header navigation (all authenticated pages)
+   Examples: .logout-btn
+*/
 
 .logout-btn {
     background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);

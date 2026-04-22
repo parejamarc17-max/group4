@@ -1,6 +1,10 @@
 /* ========================================
-   CAR MANAGEMENT & FORMS
-   ======================================== */
+   CAR MANAGEMENT & FORMS (manage_car.css)
+   ======================================== 
+   Used in: Car management pages
+   - admin/car_list.php (Add/Edit car forms)
+   - worker/worker_manage_car.php (Worker car management)
+*/
 
 .car-form-grid {
     display: grid;

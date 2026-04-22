@@ -1,6 +1,12 @@
 /* ========================================
-   HEADER & NAVIGATION STYLES
-   ======================================== */
+   HEADER & NAVIGATION STYLES (header.css)
+   ======================================== 
+   Used in: All pages with header
+   - admin/ pages (dashboard, workers, pending_workers, car_list, etc.)
+   - worker/ pages (dashboard, manage_car, rentals, sales, products)
+   - index.php (public header)
+   - All authenticated pages
+*/
 
 header {
     display: flex;

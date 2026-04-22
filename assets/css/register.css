@@ -1,6 +1,11 @@
 /* ========================================
-   LOGIN & AUTHENTICATION PAGES
-   ======================================== */
+   REGISTRATION PAGES (register.css)
+   ======================================== 
+   Used in:
+   - p_login/register.php (registration choice page)
+   - p_login/register_customer.php (customer registration form)
+   - p_login/register_worker.php (worker registration form)
+*/
 
 body.login-page,
 body.register-page {

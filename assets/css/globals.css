@@ -1,6 +1,14 @@
 /* ========================================
-   GLOBAL STYLES & RESET
-   ======================================== */
+   GLOBAL STYLES & RESET (globals.css)
+   ======================================== 
+   Used in: ALL PAGES (Master file)
+   - Global reset (*, html, body)
+   - Color palette (CSS variables)
+   - Typography (headings, paragraphs)
+   - Animations (slideUp, fadeIn, spin)
+   - Utility classes (margins, padding, text alignment)
+   - Global responsive settings
+*/
 
 * {
     margin: 0;

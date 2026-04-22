@@ -1,6 +1,13 @@
 /* ========================================
-   CARD & COMPONENT STYLES
-   ======================================== */
+   CARD & COMPONENT STYLES (components.css)
+   ======================================== 
+   Used in: Multiple pages with cards/modals
+   - admin/pending_workers.php (Application cards)
+   - admin/dashboard.php (Info cards)
+   - index.php (Rental cards)
+   - Car booking modals
+   - Progress indicators
+*/
 
 .card {
     background: white;

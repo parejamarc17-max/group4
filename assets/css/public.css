@@ -1,6 +1,10 @@
 /* ========================================
-   PUBLIC/LANDING PAGE STYLES
-   ======================================== */
+   PUBLIC/LANDING PAGE STYLES (public.css)
+   ======================================== 
+   Used in: Public pages
+   - index.php (Home/landing page with rental grid)
+   - car.php (Car booking and details page)
+*/
 
 body.public-page {
     background: linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%);

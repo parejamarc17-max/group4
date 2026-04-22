@@ -1,6 +1,14 @@
 /* ========================================
-   LOGIN & AUTHENTICATION PAGES
-   ======================================== */
+   AUTHENTICATION PAGES (auth.css)
+   ======================================== 
+   Used in:
+   - p_login/login.php (admin/worker/customer login)
+   - p_login/register.php (registration choice page)
+   - p_login/register_customer.php (customer registration form)
+   - p_login/register_worker.php (worker registration form)
+   - p_login/admin_login.php (admin login)
+   - p_login/worker_login.php (worker login)
+*/
 
 body.login-page,
 body.register-page {
@@ -14,7 +22,9 @@ body.register-page {
 
 /* ========================================
    LOGIN CONTAINER
-   ======================================== */
+   ======================================== 
+   Used in: login.php, admin_login.php, worker_login.php
+*/
 
 .login-container {
     background: white;
@@ -77,7 +87,7 @@ body.register-page {
 /* ========================================
    REGISTER CONTAINER (Multiple Options)
    ======================================== */
-
+   /* Used in: register.php (choice between customer/worker registration) */
 .register-title {
     text-align: center;
     color: white;
@@ -130,7 +140,7 @@ body.register-page {
 /* ========================================
    REGISTRATION FORM
    ======================================== */
-
+  /* Used in: register_customer.php, register_worker.php */
 .register-form {
     max-width: 500px;
     width: 100%;
@@ -226,6 +236,8 @@ body.register-page {
     color: #764ba2;
     text-decoration: underline;
 }
+ /*Used in: register_customer.php, register_worker.php
+
 
 /* ========================================
    BACK BUTTON
@@ -256,6 +268,8 @@ body.register-page {
     color: white;
     transform: translateX(-3px);
 }
+/*Applied to: All authentication pages (mobile responsive)
+
 
 /* ========================================
    RESPONSIVE LOGIN/REGISTER

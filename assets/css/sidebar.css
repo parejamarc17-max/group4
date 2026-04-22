@@ -1,6 +1,11 @@
 /* ========================================
-   SIDEBAR & MENU STYLES
-   ======================================== */
+   SIDEBAR & MENU STYLES (sidebar.css)
+   ======================================== 
+   Used in: Admin and worker pages (mobile menu)
+   - admin/ pages (sidebar navigation)
+   - worker/ pages (sidebar navigation)
+   - Hamburger menu on mobile devices
+*/
 
 .side-menu {
     position: fixed;

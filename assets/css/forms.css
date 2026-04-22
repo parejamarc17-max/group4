@@ -1,6 +1,12 @@
 /* ========================================
-   FORM STYLES
-   ======================================== */
+   FORM ELEMENTS STYLES (forms.css)
+   ======================================== 
+   Used in: All pages with forms
+   - admin/ pages (workers.php, car_list.php, products.php, rentals.php)
+   - p_login/ pages (login, register_customer, register_worker)
+   - worker/ pages (manage_car, products, rentals, sales)
+   - index.php, car.php
+*/
 
 form {
     text-align: left;

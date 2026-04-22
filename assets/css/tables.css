@@ -1,6 +1,15 @@
 /* ========================================
-   TABLE STYLES
-   ======================================== */
+   TABLE STYLES (tables.css)
+   ======================================== 
+   Used in: Admin and worker management pages
+   - admin/workers.php (Active workers table)
+   - admin/pending_workers.php (Pending applications table)
+   - admin/car_list.php (Cars table)
+   - admin/rentals.php (Rentals table)
+   - admin/sales.php (Sales table)
+   - admin/products.php (Products table)
+   - worker/worker_rentals.php
+*/
 
 table {
     width: 100%;
