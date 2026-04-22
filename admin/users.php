@@ -49,14 +49,14 @@ $users = $pdo->query("SELECT * FROM users ORDER BY id DESC")->fetchAll();
                 <span></span>
                 <span></span>
             </div>
-            <h2>🚗 User Management</h2>
+            <h2> User Management</h2>
         </div>
         <div class="header-right">
             <div class="user-section">
                 <span class="username">
                     <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
                 </span>
-                <a href="../p_login/logout.php" class="logout-btn">🚪 Logout</a>
+                <a href="../p_login/logout.php" class="logout-btn"> Logout</a>
             </div>
         </div>
     </div>
@@ -64,15 +64,15 @@ $users = $pdo->query("SELECT * FROM users ORDER BY id DESC")->fetchAll();
 
 <div class="side-menu" id="adminMenu">
     <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
-    <h2>🚗 DRIVE ADMIN</h2>
-    <a href="dashboard.php" class="btn-nav">📊 Dashboard</a>
-    <a href="manage_car.php" class="btn-nav">🚘 Manage Cars</a>
-    <a href="rentals.php" class="btn-nav">📅 Rentals</a>
-    <a href="products.php" class="btn-nav">📦 Products</a>
-    <a href="sales.php" class="btn-nav">💰 Sales</a>
-    <a href="users.php" class="btn-nav">👥 Users</a>
-    <a href="pending_workers.php" class="btn-nav">👷 Pending Workers</a>
-    <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
+    <h2> DRIVE ADMIN</h2>
+    <a href="dashboard.php" class="btn-nav"> Dashboard</a>
+    <a href="manage_car.php" class="btn-nav"> Manage Cars</a>
+    <a href="rentals.php" class="btn-nav"> Rentals</a>
+    <a href="products.php" class="btn-nav"> Products</a>
+    <a href="sales.php" class="btn-nav"> Sales</a>
+    <a href="users.php" class="btn-nav"> Users</a>
+    <a href="pending_workers.php" class="btn-nav"> Pending Workers</a>
+    <a href="../p_login/logout.php" class="btn-nav"> Logout</a>
 </div>
 
 <div class="overlay" id="adminOverlay" onclick="closeMenuAdmin()"></div>
@@ -80,7 +80,7 @@ $users = $pdo->query("SELECT * FROM users ORDER BY id DESC")->fetchAll();
 <div class="dashboard">
 
     <div class="main">
-        <h1>👥 User Management</h1>
+        <h1> User Management</h1>
         
         <div class="panel">
             <h3>Add New User</h3>

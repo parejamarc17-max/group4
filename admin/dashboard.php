@@ -35,14 +35,14 @@ $total_users = $stmt->fetch()['count'];
                 <span></span>
                 <span></span>
             </div>
-            <h2>🚗 Admin Dashboard</h2>
+            <h2>Admin Dashboard</h2>
         </div>
         <div class="header-right">
             <div class="user-section">
                 <span class="username">
                     <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
                 </span>
-                <a href="../p_login/logout.php" class="logout-btn">🚪 Logout</a>
+                <a href="../p_login/logout.php" class="logout-btn"> Logout</a>
             </div>
         </div>
     </div>
@@ -50,15 +50,15 @@ $total_users = $stmt->fetch()['count'];
 
 <div class="side-menu" id="adminMenu">
     <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;">
-    <h2>🚗 DRIVE ADMIN</h2>
-    <a href="dashboard.php" class="btn-nav">📊 Dashboard</a>
-    <a href="manage_car.php" class="btn-nav">🚘 Manage Cars</a>
-    <a href="rentals.php" class="btn-nav">📅 Rentals</a>
-    <a href="products.php" class="btn-nav">📦 Products</a>
-    <a href="sales.php" class="btn-nav">💰 Sales</a>
-    <a href="worker_list.php" class="btn-nav">👷 Worker List</a>
-    <a href="pending_workers.php" class="btn-nav">⏳ Pending Workers</a>
-    <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
+    <h2> DRIVE ADMIN</h2>
+    <a href="dashboard.php" class="btn-nav"> Dashboard</a>
+    <a href="manage_car.php" class="btn-nav"> Manage Cars</a>
+    <a href="rentals.php" class="btn-nav"> Rentals</a>
+    <a href="products.php" class="btn-nav"> Products</a>
+    <a href="sales.php" class="btn-nav"> Sales</a>
+    <a href="worker_list.php" class="btn-nav"> Worker List</a>
+    <a href="pending_workers.php" class="btn-nav"> Pending Workers</a>
+    <a href="../p_login/logout.php" class="btn-nav"> Logout</a>
 </div>
 
 <div class="overlay" id="adminOverlay" onclick="closeMenuAdmin()"></div>
@@ -67,8 +67,8 @@ $total_users = $stmt->fetch()['count'];
     <div class="main" style="margin-left: 0; width: 100%;">
         <h1>Dashboard Overview</h1>
         <div class="cards">
-            <div class="card">🚗 Total Cars<br><h2><?= $total_cars ?></h2></div>
-            <div class="card">🚘 Active Rentals<br><h2><?= $active_rentals ?></h2></div>
+            <div class="card"> Total Cars<br><h2><?= $total_cars ?></h2></div>
+            <div class="card"> Active Rentals<br><h2><?= $active_rentals ?></h2></div>
             <div class="card">💰 Revenue<br><h2>$<?= number_format($revenue, 2) ?></h2></div>
             <div class="card">👥 Users<br><h2><?= $total_users ?></h2></div>
         </div>

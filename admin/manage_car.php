@@ -314,14 +314,14 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
                 <span></span>
                 <span></span>
             </div>
-            <h2>🚗 Manage Cars</h2>
+            <h2> Manage Cars</h2>
         </div>
         <div class="header-right">
             <div class="user-section">
                 <span class="username">
                     <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
                 </span>
-                <a href="../p_login/logout.php" class="logout-btn">🚪 Logout</a>
+                <a href="../p_login/logout.php" class="logout-btn"> Logout</a>
             </div>
         </div>
     </div>
@@ -329,22 +329,22 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
 
 <div class="side-menu" id="adminMenu">
     <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
-    <h2>🚗 DRIVE ADMIN</h2>
-    <a href="dashboard.php" class="btn-nav">📊 Dashboard</a>
-    <a href="manage_car.php" class="btn-nav">🚘 Manage Cars</a>
-    <a href="rentals.php" class="btn-nav">📅 Rentals</a>
-    <a href="products.php" class="btn-nav">📦 Products</a>
-    <a href="sales.php" class="btn-nav">💰 Sales</a>
-    <a href="worker_list.php" class="btn-nav">👷 Worker List</a>
-    <a href="pending_workers.php" class="btn-nav">⏳ Pending Workers</a>
-    <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
+    <h2> DRIVE ADMIN</h2>
+    <a href="dashboard.php" class="btn-nav"> Dashboard</a>
+    <a href="manage_car.php" class="btn-nav"> Manage Cars</a>
+    <a href="rentals.php" class="btn-nav"> Rentals</a>
+    <a href="products.php" class="btn-nav"> Products</a>
+    <a href="sales.php" class="btn-nav"> Sales</a>
+    <a href="worker_list.php" class="btn-nav"> Worker List</a>
+    <a href="pending_workers.php" class="btn-nav"> Pending Workers</a>
+    <a href="../p_login/logout.php" class="btn-nav"> Logout</a>
 </div>
 
 <div class="overlay" id="adminOverlay" onclick="closeMenuAdmin()"></div>
 
 <div class="dashboard">
     <div class="main">
-        <h1>🚘 Manage Fleet</h1>
+        <h1> Manage Fleet</h1>
 
         <div class="form-container">
             <h3>Add New Car</h3>
@@ -363,7 +363,7 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
                 <div class="form-grid">
                     <!-- Basic Information Section -->
                     <div class="form-group full">
-                        <h4 style="margin: 10px 0; color: #667eea;">📸 Basic Information</h4>
+                        <h4 style="margin: 10px 0; color: #667eea;"> Basic Information</h4>
                     </div>
                     
                     <div class="form-group full">
@@ -427,7 +427,7 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
 
                     <!-- Car Specifications Section -->
                     <div class="form-group full">
-                        <h4 style="margin: 20px 0 10px 0; color: #667eea;">⚙️ Car Specifications</h4>
+                        <h4 style="margin: 20px 0 10px 0; color: #667eea;"> Car Specifications</h4>
                     </div>
 
                     <div class="form-group">
@@ -490,7 +490,7 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
 
         <!-- Cars List Table -->
         <div class="table-wrap">
-            <h3>📋 Current Fleet</h3>
+            <h3> Current Fleet</h3>
             <table>
                 <thead>
                     <tr>
@@ -516,25 +516,25 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
                                 <td>
                                     <strong><?= htmlspecialchars($car['car_name']) ?></strong><br>
                                     <small><?= htmlspecialchars($car['brand']) ?> <?= htmlspecialchars($car['model']) ?> (<?= htmlspecialchars($car['year']) ?>)</small><br>
-                                    <small>🔢 <?= htmlspecialchars($car['plate_num']) ?></small><br>
-                                    <small>📍 <?= htmlspecialchars($car['location'] ?? 'N/A') ?></small>
+                                    <small> <?= htmlspecialchars($car['plate_num']) ?></small><br>
+                                    <small> <?= htmlspecialchars($car['location'] ?? 'N/A') ?></small>
                                 </td>
                                 <td>
                                     <div class="car-specs">
                                         <?php if (!empty($car['transmission'])): ?>
-                                            <span class="spec-badge">⚙️ <?= htmlspecialchars($car['transmission']) ?></span>
+                                            <span class="spec-badge"> <?= htmlspecialchars($car['transmission']) ?></span>
                                         <?php endif; ?>
                                         <?php if (!empty($car['fuel_type'])): ?>
-                                            <span class="spec-badge">⛽ <?= htmlspecialchars($car['fuel_type']) ?></span>
+                                            <span class="spec-badge"> <?= htmlspecialchars($car['fuel_type']) ?></span>
                                         <?php endif; ?>
                                         <?php if (!empty($car['seating_capacity'])): ?>
-                                            <span class="spec-badge">👥 <?= htmlspecialchars($car['seating_capacity']) ?> seats</span>
+                                            <span class="spec-badge"> <?= htmlspecialchars($car['seating_capacity']) ?> seats</span>
                                         <?php endif; ?>
                                         <?php if (!empty($car['category'])): ?>
-                                            <span class="spec-badge">🏷️ <?= htmlspecialchars($car['category']) ?></span>
+                                            <span class="spec-badge"> <?= htmlspecialchars($car['category']) ?></span>
                                         <?php endif; ?>
                                         <?php if (!empty($car['color'])): ?>
-                                            <span class="spec-badge">🎨 <?= htmlspecialchars($car['color']) ?></span>
+                                            <span class="spec-badge"> <?= htmlspecialchars($car['color']) ?></span>
                                         <?php endif; ?>
                                     </div>
                                 </td>

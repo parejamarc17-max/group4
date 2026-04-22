@@ -116,14 +116,14 @@ $workers = $stmt->fetchAll();
                 <span></span>
                 <span></span>
             </div>
-            <h2>🚗 Worker List</h2>
+            <h2> Worker List</h2>
         </div>
         <div class="header-right">
             <div class="user-section">
                 <span class="username">
                     <?= htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>
                 </span>
-                <a href="../p_login/logout.php" class="logout-btn">🚪 Logout</a>
+                <a href="../p_login/logout.php" class="logout-btn">Logout</a>
             </div>
         </div>
     </div>
@@ -131,22 +131,22 @@ $workers = $stmt->fetchAll();
 
 <div class="side-menu" id="adminMenu">
     <img src="../assets/images/download (4).jpg" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
-    <h2>🚗 DRIVE ADMIN</h2>
-    <a href="dashboard.php" class="btn-nav">📊 Dashboard</a>
-    <a href="manage_car.php" class="btn-nav">🚘 Manage Cars</a>
-    <a href="rentals.php" class="btn-nav">📅 Rentals</a>
-    <a href="products.php" class="btn-nav">📦 Products</a>
-    <a href="sales.php" class="btn-nav">💰 Sales</a>
-    <a href="worker_list.php" class="btn-nav">👷 Worker List</a>
-    <a href="pending_workers.php" class="btn-nav">⏳ Pending Workers</a>
-    <a href="../p_login/logout.php" class="btn-nav">🚪 Logout</a>
+    <h2>DRIVE ADMIN</h2>
+    <a href="dashboard.php" class="btn-nav"> Dashboard</a>
+    <a href="manage_car.php" class="btn-nav"> Manage Cars</a>
+    <a href="rentals.php" class="btn-nav">Rentals</a>
+    <a href="products.php" class="btn-nav">Products</a>
+    <a href="sales.php" class="btn-nav"> Sales</a>
+    <a href="worker_list.php" class="btn-nav"> Worker List</a>
+    <a href="pending_workers.php" class="btn-nav"> Pending Workers</a>
+    <a href="../p_login/logout.php" class="btn-nav"> Logout</a>
 </div>
 
 <div class="overlay" id="adminOverlay" onclick="closeMenuAdmin()"></div>
 
 <div class="dashboard">
     <div class="main">
-        <h1>👷 Worker List Management</h1>
+        <h1> Worker List Management</h1>
         
         <?php if(isset($approved_msg)): ?>
             <p style="color:green; background:#e0ffe0; padding:10px; border-radius:5px; margin-bottom:15px;">
@@ -178,7 +178,7 @@ $workers = $stmt->fetchAll();
                             <form method="POST" style="display:inline;" onsubmit="return confirmFire('<?= htmlspecialchars($worker['full_name']) ?>')">
                                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                                 <input type="hidden" name="fire_worker" value="<?= $worker['id'] ?>">
-                                <button type="submit" class="btn-fire">🚫 Fire Worker</button>
+                                <button type="submit" class="btn-fire"> Fire Worker</button>
                             </form>
                         </div>
                     </div>
