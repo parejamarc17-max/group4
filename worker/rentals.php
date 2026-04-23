@@ -5,7 +5,7 @@ requireAdmin();
 
 
 // =====================================
-//  DELETE RENTAL
+// ❌ DELETE RENTAL
 // =====================================
 if (isset($_GET['delete'])) {
 
@@ -214,6 +214,7 @@ tr:hover {
     <th>Rental Date</th>
     <th>Return Date</th>
     <th>Total Cost</th>
+    <th>Payment</th> <!--ADDED-->
     <th>Action</th>
 </tr>
 </thead>
@@ -221,6 +222,11 @@ tr:hover {
 <tbody>
 
 <?php foreach($rentals as $rental): ?>
+    <?php if($rental['payment_status'] == 'pending'): ?>
+    <div style="color:red; font-size:12px;">
+        ⚠ Waiting for payment
+    </div>
+<?php endif; ?>
 <tr>
 
 <td>
@@ -231,13 +237,13 @@ tr:hover {
 <td><?= htmlspecialchars($rental['car_name'] ?? 'N/A') ?></td>
 <td><?= $rental['rental_date'] ?></td>
 <td><?= $rental['return_date'] ?></td>
-<td>₱<?= number_format($rental['total_cost'], 2) ?></td>
+<td>$<?= number_format($rental['total_cost'], 2) ?></td>
 
 <td>
 
 <div class="action-box">
 
-<?php if($rental['status'] == 'active'): ?>
+if($rental['status'] == 'active' && $rental['payment_status'] == 'paid'):
 
     <button class="btn"
         onclick="openReturnModal(
