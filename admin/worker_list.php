@@ -21,17 +21,33 @@ if (empty($_SESSION['csrf_token'])) {
 // Check for success messages
 $approved_msg = isset($_GET['approved']) ? "Worker successfully approved and added to the list!" : null;
 
-// Get only workers (role = 'worker') and not fired
+// Get only workers (role = 'worker') from users table
 try {
-    $stmt = $pdo->query("
-        SELECT u.id, u.username, u.full_name, u.email, u.phone, u.created_at,
-               wa.address, wa.phone as app_phone
-        FROM users u
-        LEFT JOIN worker_applications wa ON u.id = wa.user_id
-        WHERE u.role = 'worker'
-        ORDER BY u.created_at DESC
-    ");
-    $workers = $stmt->fetchAll();
+    // Find worker-related table for additional info
+    $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+    $workerTable = null;
+    foreach ($tables as $table) {
+        if (stripos($table, 'worker') !== false || stripos($table, 'hiring') !== false || stripos($table, 'application') !== false) {
+                $workerTable = $table;
+                break;
+            }
+        }
+    
+    if ($workerTable) {
+        $stmt = $pdo->query("
+            SELECT u.id, u.username, u.full_name, u.email, u.phone, u.created_at,
+                   wt.address, wt.phone as app_phone, wt.experience
+            FROM users u
+            LEFT JOIN $workerTable wt ON u.id = wt.user_id
+            WHERE u.role = 'worker'
+            ORDER BY u.created_at DESC
+        ");
+        $workers = $stmt->fetchAll();
+    } else {
+        // No worker table found, just get basic worker info
+        $stmt = $pdo->query("SELECT id, username, full_name, email, phone, created_at FROM users WHERE role = 'worker' ORDER BY created_at DESC");
+        $workers = $stmt->fetchAll();
+    }
     
     // Debug: Show query results
     if (empty($workers)) {
@@ -39,6 +55,14 @@ try {
         $debug_msg .= "Total users in table: ";
         $count_stmt = $pdo->query("SELECT COUNT(*) as count FROM users");
         $debug_msg .= $count_stmt->fetch()['count'];
+        $debug_msg .= ". Worker users: ";
+        $worker_stmt = $pdo->query("SELECT COUNT(*) as count FROM users WHERE role = 'worker'");
+        $debug_msg .= $worker_stmt->fetch()['count'];
+        if ($workerTable) {
+            $debug_msg .= ". Worker table: $workerTable";
+        } else {
+            $debug_msg .= ". No worker table found";
+        }
         $error_msg = $debug_msg;
     }
 } catch (PDOException $e) {
@@ -191,6 +215,9 @@ try {
                         <div class="worker-info">
                             <p><strong>Phone:</strong> <?= htmlspecialchars($worker['phone'] ?? 'N/A') ?></p>
                             <p><strong>Address:</strong> <?= htmlspecialchars($worker['address'] ?? 'N/A') ?></p>
+                            <?php if(isset($worker['experience'])): ?>
+                            <p><strong>Experience:</strong> <?= htmlspecialchars($worker['experience']) ?> years</p>
+                            <?php endif; ?>
                             <p><strong>Joined:</strong> <?= date('M d, Y', strtotime($worker['created_at'])) ?></p>
                         </div>
 

@@ -9,18 +9,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
 
     if ($action === 'approve') {
-        // Get worker application details
-        $app_stmt = $pdo->prepare("SELECT * FROM worker_applications WHERE id = ?");
+        // First find the worker table
+        $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+        $workerTable = null;
+        foreach ($tables as $table) {
+            if (stripos($table, 'worker') !== false || stripos($table, 'hiring') !== false || stripos($table, 'application') !== false) {
+                $workerTable = $table;
+                break;
+            }
+        }
+        
+        if (!$workerTable) {
+            die("No worker application table found");
+        }
+        
+        // Get worker application details from the found table
+        $app_stmt = $pdo->prepare("SELECT * FROM $workerTable WHERE id = ?");
         $app_stmt->execute([$application_id]);
         $application = $app_stmt->fetch();
 
         if ($application) {
-            // Create a user account for the approved worker using the original username and password
+            // Create a user account for the approved worker using original username and password
             try {
                 $user_stmt = $pdo->prepare("INSERT INTO users (username, password, full_name, email, phone, role) VALUES (?, ?, ?, ?, ?, 'worker')");
                 $user_stmt->execute([
                     $application['username'], 
-                    $application['password_hash'], 
+                    $application['password'], 
                     $application['full_name'], 
                     $application['email'], 
                     $application['phone']
@@ -28,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 
                 $user_id = $pdo->lastInsertId();
 
-                // Update worker_applications with user_id and approved status
-                $update_stmt = $pdo->prepare("UPDATE worker_applications SET status = 'approved', user_id = ? WHERE id = ?");
+                // Update worker table with user_id and approved status
+                $update_stmt = $pdo->prepare("UPDATE $workerTable SET status = 'approved', user_id = ? WHERE id = ?");
                 $update_stmt->execute([$user_id, $application_id]);
 
                 header('Location: worker_list.php?approved=1');
@@ -39,32 +53,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             }
         }
     } elseif ($action === 'reject') {
-        $stmt = $pdo->prepare("UPDATE worker_applications SET status = 'rejected' WHERE id = ?");
-        $stmt->execute([$application_id]);
+        // Find worker table for rejection
+        $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+        $workerTable = null;
+        foreach ($tables as $table) {
+            if (stripos($table, 'worker') !== false || stripos($table, 'hiring') !== false || stripos($table, 'application') !== false) {
+                $workerTable = $table;
+                break;
+            }
+        }
+        
+        if ($workerTable) {
+            $stmt = $pdo->prepare("UPDATE $workerTable SET status = 'rejected' WHERE id = ?");
+            $stmt->execute([$application_id]);
+        }
         
         header('Location: pending_workers.php?rejected=1');
         exit();
     }
 }
 
-// Get pending applications
+// Get pending applications from worker table
 try {
-    $stmt = $pdo->query("SELECT * FROM worker_applications WHERE status = 'pending' ORDER BY created_at DESC");
-    $applications = $stmt->fetchAll();
-    
-    // Debug: Show query results
-    if (empty($applications)) {
-        $debug_msg = "No pending applications found. ";
-        $debug_msg .= "Total applications in table: ";
-        $count_stmt = $pdo->query("SELECT COUNT(*) as count FROM worker_applications");
-        $debug_msg .= $count_stmt->fetch()['count'];
-        $debug_msg .= ". Statuses: ";
-        $status_stmt = $pdo->query("SELECT status, COUNT(*) as count FROM worker_applications GROUP BY status");
-        $statuses = $status_stmt->fetchAll();
-        foreach ($statuses as $status) {
-            $debug_msg .= $status['status'] . " (" . $status['count'] . ") ";
+    // Find the worker table
+    $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+    $workerTable = null;
+    foreach ($tables as $table) {
+        if (stripos($table, 'worker') !== false || stripos($table, 'hiring') !== false || stripos($table, 'application') !== false) {
+                $workerTable = $table;
+                break;
+            }
         }
-        $error_msg = $debug_msg;
+    
+    if (!$workerTable) {
+        $error_msg = "No worker application table found in database";
+        $applications = [];
+    } else {
+        $stmt = $pdo->query("SELECT * FROM $workerTable WHERE status = 'pending' ORDER BY created_at DESC");
+        $applications = $stmt->fetchAll();
+        
+        // Debug: Show query results
+        if (empty($applications)) {
+            $debug_msg = "No pending applications found. ";
+            $debug_msg .= "Total applications in $workerTable table: ";
+            $count_stmt = $pdo->query("SELECT COUNT(*) as count FROM $workerTable");
+            $debug_msg .= $count_stmt->fetch()['count'];
+            $debug_msg .= ". Statuses: ";
+            $status_stmt = $pdo->query("SELECT status, COUNT(*) as count FROM $workerTable GROUP BY status");
+            $statuses = $status_stmt->fetchAll();
+            foreach ($statuses as $status) {
+                $debug_msg .= $status['status'] . " (" . $status['count'] . ") ";
+            }
+            $error_msg = $debug_msg;
+        }
     }
 } catch (PDOException $e) {
     $error_msg = "Database error: " . $e->getMessage();
