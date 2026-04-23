@@ -15,6 +15,15 @@
         <p>Fill in your details to join our team</p>
     </div>
 
+    <?php 
+    $error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
+    if ($error): 
+    ?>
+        <div class="error-message" style="color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 5px; margin-bottom: 15px; border-left: 4px solid #d32f2f;">
+            ❌ <?= $error ?>
+        </div>
+    <?php endif; ?>
+
     <form action="../processor/register_worker_process.php" method="POST">
 
         <div class="form-group">

@@ -21,12 +21,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO worker_applications (full_name, phone, address, status) VALUES (?, ?, ?, 'pending')");
-        $stmt->execute([$full_name, $phone, $address]);
-        header('Location: ../p_login/login.php?message=Application submitted, awaiting approval');
+        // Create worker_applications table if it doesn't exist
+        $pdo->exec("CREATE TABLE IF NOT EXISTS worker_applications (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(50) UNIQUE NOT NULL,
+            email VARCHAR(100) UNIQUE NOT NULL,
+            full_name VARCHAR(100) NOT NULL,
+            phone VARCHAR(20),
+            address TEXT,
+            experience INT,
+            password_hash VARCHAR(255),
+            status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+            user_id INT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+        
+        $stmt = $pdo->prepare("INSERT INTO worker_applications (username, email, full_name, phone, address, experience, password_hash, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')");
+        $stmt->execute([$username, $email, $full_name, $phone, $address, $experience, $hashed_password]);
+        header('Location: ../p_login/login.php?message=Application submitted successfully. Please wait for admin approval.');
         exit();
     } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
+        header('Location: ../p_login/register_worker.php?error=' . urlencode($e->getMessage()));
+        exit();
     }
 }
 ?>

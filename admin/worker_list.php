@@ -22,15 +22,29 @@ if (empty($_SESSION['csrf_token'])) {
 $approved_msg = isset($_GET['approved']) ? "Worker successfully approved and added to the list!" : null;
 
 // Get only workers (role = 'worker') and not fired
-$stmt = $pdo->query("
-    SELECT u.id, u.username, u.full_name, u.email, u.phone, u.created_at,
-           wa.address, wa.phone as app_phone
-    FROM users u
-    LEFT JOIN worker_applications wa ON u.id = wa.user_id
-    WHERE u.role = 'worker'
-    ORDER BY u.created_at DESC
-");
-$workers = $stmt->fetchAll();
+try {
+    $stmt = $pdo->query("
+        SELECT u.id, u.username, u.full_name, u.email, u.phone, u.created_at,
+               wa.address, wa.phone as app_phone
+        FROM users u
+        LEFT JOIN worker_applications wa ON u.id = wa.user_id
+        WHERE u.role = 'worker'
+        ORDER BY u.created_at DESC
+    ");
+    $workers = $stmt->fetchAll();
+    
+    // Debug: Show query results
+    if (empty($workers)) {
+        $debug_msg = "No workers found in users table with role='worker'. ";
+        $debug_msg .= "Total users in table: ";
+        $count_stmt = $pdo->query("SELECT COUNT(*) as count FROM users");
+        $debug_msg .= $count_stmt->fetch()['count'];
+        $error_msg = $debug_msg;
+    }
+} catch (PDOException $e) {
+    $error_msg = "Database error: " . $e->getMessage();
+    $workers = [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -151,6 +165,12 @@ $workers = $stmt->fetchAll();
         <?php if(isset($approved_msg)): ?>
             <p style="color:green; background:#e0ffe0; padding:10px; border-radius:5px; margin-bottom:15px;">
                 ✅ <?= htmlspecialchars($approved_msg) ?>
+            </p>
+        <?php endif; ?>
+
+        <?php if(isset($error_msg)): ?>
+            <p style="color:#d32f2f; background:#ffebee; padding:10px; border-radius:5px; margin-bottom:15px;">
+                ❌ <?= htmlspecialchars($error_msg) ?>
             </p>
         <?php endif; ?>
 

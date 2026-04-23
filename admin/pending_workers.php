@@ -15,14 +15,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $application = $app_stmt->fetch();
 
         if ($application) {
-            // Create a user account for the approved worker
-            $username = strtolower(str_replace(' ', '_', $application['full_name'])) . '_' . uniqid();
-            $temp_password = bin2hex(random_bytes(4)); // Temporary password
-            $hashed_password = password_hash($temp_password, PASSWORD_DEFAULT);
-
+            // Create a user account for the approved worker using the original username and password
             try {
                 $user_stmt = $pdo->prepare("INSERT INTO users (username, password, full_name, email, phone, role) VALUES (?, ?, ?, ?, ?, 'worker')");
-                $user_stmt->execute([$username, $hashed_password, $application['full_name'], $application['full_name'] . '@worker.local', $application['phone']]);
+                $user_stmt->execute([
+                    $application['username'], 
+                    $application['password_hash'], 
+                    $application['full_name'], 
+                    $application['email'], 
+                    $application['phone']
+                ]);
                 
                 $user_id = $pdo->lastInsertId();
 
@@ -46,8 +48,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 }
 
 // Get pending applications
-$stmt = $pdo->query("SELECT * FROM worker_applications WHERE status = 'pending' ORDER BY created_at DESC");
-$applications = $stmt->fetchAll();
+try {
+    $stmt = $pdo->query("SELECT * FROM worker_applications WHERE status = 'pending' ORDER BY created_at DESC");
+    $applications = $stmt->fetchAll();
+    
+    // Debug: Show query results
+    if (empty($applications)) {
+        $debug_msg = "No pending applications found. ";
+        $debug_msg .= "Total applications in table: ";
+        $count_stmt = $pdo->query("SELECT COUNT(*) as count FROM worker_applications");
+        $debug_msg .= $count_stmt->fetch()['count'];
+        $debug_msg .= ". Statuses: ";
+        $status_stmt = $pdo->query("SELECT status, COUNT(*) as count FROM worker_applications GROUP BY status");
+        $statuses = $status_stmt->fetchAll();
+        foreach ($statuses as $status) {
+            $debug_msg .= $status['status'] . " (" . $status['count'] . ") ";
+        }
+        $error_msg = $debug_msg;
+    }
+} catch (PDOException $e) {
+    $error_msg = "Database error: " . $e->getMessage();
+    $applications = [];
+}
 
 // Check for success/error messages
 $rejected_msg = isset($_GET['rejected']) ? "Application rejected." : null;
@@ -125,8 +147,13 @@ $error_msg = isset($_GET['error']) ? $_GET['error'] : null;
                 <?php foreach ($applications as $app): ?>
                     <div class="application-card">
                         <h3><?php echo htmlspecialchars($app['full_name']); ?></h3>
+                        <p><strong>Username:</strong> <?php echo htmlspecialchars($app['username']); ?></p>
+                        <p><strong>Email:</strong> <?php echo htmlspecialchars($app['email']); ?></p>
                         <p><strong>Phone:</strong> <?php echo htmlspecialchars($app['phone']); ?></p>
                         <p><strong>Address:</strong> <?php echo htmlspecialchars($app['address']); ?></p>
+                        <?php if(isset($app['experience'])): ?>
+                        <p><strong>Experience:</strong> <?php echo htmlspecialchars($app['experience']); ?> years</p>
+                        <?php endif; ?>
                         <p><strong>Status:</strong> <?php echo htmlspecialchars($app['status']); ?></p>
                         <p><strong>Applied:</strong> <?php echo $app['created_at']; ?></p>
 
