@@ -3,22 +3,24 @@ require_once '../config/auth.php';
 require_once '../config/database.php';
 requireAdmin();
 
-$sales = $pdo->query("SELECT * FROM sales ORDER BY id DESC LIMIT 10")->fetchAll();
-$products = $pdo->query("SELECT * FROM products WHERE stock > 0")->fetchAll();
+$stmt = $pdo->query("SELECT COUNT(*) as count FROM car");
+$total_cars = $stmt->fetch()['count'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_sale'])) {
-    $invoice_no = 'INV-' . time();
-    $stmt = $pdo->prepare("INSERT INTO sales (invoice_no, customer_name, grand_total, payment_method, user_id) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$invoice_no, $_POST['customer_name'], $_POST['grand_total'], $_POST['payment_method'], $_SESSION['user_id']]);
-    $success = "Sale completed! Invoice: $invoice_no";
-}
+$stmt = $pdo->query("SELECT COUNT(*) as count FROM rentals WHERE status = 'active'");
+$active_rentals = $stmt->fetch()['count'];
+
+$stmt = $pdo->query("SELECT SUM(total_cost) as total FROM rentals WHERE status = 'completed'");
+$revenue = $stmt->fetch()['total'] ?? 0;
+
+$stmt = $pdo->query("SELECT COUNT(*) as count FROM users");
+$total_users = $stmt->fetch()['count'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sales</title>
+    <title>Worker Dashboard</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
@@ -33,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_sale'])) {
                 <span></span>
                 <span></span>
             </div>
-            <h2> Sales Transactions</h2>
+            <h2>Admin Dashboard</h2>
         </div>
         <div class="header-right">
             <div class="user-section">
@@ -47,9 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_sale'])) {
 </header>
 
 <div class="side-menu" id="adminMenu">
-    <img src="../assets/images/logo.png" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;" alt="Admin">
-    <h2> DRIVE ADMIN</h2>
-    <a href="worker_dashboard.php" class="btn-nav"> Dashboard</a>
+    <img src="../assets/images/logo.png" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;">
+    <h2> DRIVE WORKER</h2>
+    <a href="workers_dashboard.php" class="btn-nav"> Dashboard</a>
     <a href="manage_car.php" class="btn-nav"> Manage Cars</a>
     <a href="rentals.php" class="btn-nav"> Rentals</a>
     <a href="products.php" class="btn-nav"> Products</a>
@@ -61,25 +63,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_sale'])) {
 <div class="overlay" id="adminOverlay" onclick="closeMenuAdmin()"></div>
 
 <div class="dashboard">
-    <div class="main">
-        <h1> Sales Transactions</h1>
-        
-        <div class="panel">
-            <h3>Recent Sales</h3>
-            <table>
-                <thead><tr><th>Invoice</th><th>Customer</th><th>Total</th><th>Payment</th><th>Date</th></tr></thead>
-                <tbody>
-                    <?php foreach($sales as $s): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($s['invoice_no']) ?></td>
-                        <td><?= htmlspecialchars($s['customer_name']) ?></td>
-                        <td>₱<?= number_format($s['grand_total'], 2) ?></td>
-                        <td><?= $s['payment_method'] ?></td>
-                        <td><?= $s['created_at'] ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+    <div class="main" style="margin-left: 0; width: 100%;">
+        <h1>Dashboard Overview</h1>
+        <div class="cards">
+            <div class="card"> Total Cars<br><h2><?= $total_cars ?></h2></div>
+            <div class="card"> Active Rentals<br><h2><?= $active_rentals ?></h2></div>
+           <div class="card">💰 Revenue <h2>₱<?= number_format($revenue, 2) ?></h2>
+</div>
+
+            <div class="card">👥 Users<br><h2><?= $total_users ?></h2></div>
         </div>
     </div>
 </div>
