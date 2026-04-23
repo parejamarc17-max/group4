@@ -24,6 +24,9 @@
                 <input type="password" name="password" placeholder="Password" required>
             </div>
             <div class="form-group">
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            </div>
+            <div class="form-group">
                 <input type="text" name="phone" placeholder="Phone">
             </div>
             <div class="form-group">

@@ -67,6 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: ../admin/dashboard.php');
         } elseif ($user['role'] == 'worker') {
             header('Location: ../worker.php');
+        } elseif ($user['role'] == 'customer') {
+            header('Location: ../customer/dashboard.php');
         }
         exit();
     }
@@ -89,6 +91,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: ../admin/dashboard.php');
         } elseif ($valid_users[$username]['role'] == 'worker') {
             header('Location: ../worker.php');
+        } elseif ($valid_users[$username]['role'] == 'customer') {
+            header('Location: ../customer/dashboard.php');
         } 
         exit();
     }

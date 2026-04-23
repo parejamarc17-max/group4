@@ -17,7 +17,7 @@ body {
     width: 300px;
     height: 100%;
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    color: white;
+    color: rgb(81, 78, 78);
     padding: 20px;
     transition: left 0.3s ease;
     z-index: 999;
@@ -103,7 +103,7 @@ body {
 .hamburger-btn span {
     width: 25px;
     height: 3px;
-    background: #ff6b00;
+    background: #000000;
     border-radius: 3px;
     transition: all 0.3s ease;
 }
