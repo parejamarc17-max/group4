@@ -93,7 +93,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background: none;
+    background: transparent;
     border: none;
     cursor: pointer;
     padding: 0.5rem;
@@ -103,7 +103,7 @@ body {
 .hamburger-btn span {
     width: 25px;
     height: 3px;
-    background: #000000;
+    background: #ffffff;
     border-radius: 3px;
     transition: all 0.3s ease;
 }
