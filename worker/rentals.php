@@ -243,7 +243,7 @@ tr:hover {
 
 <div class="action-box">
 
-if($rental['status'] == 'active' && $rental['payment_status'] == 'paid'):
+<?php if($rental['status'] == 'active' && $rental['payment_status'] == 'paid'): ?>
 
     <button class="btn"
         onclick="openReturnModal(
