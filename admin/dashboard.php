@@ -58,6 +58,7 @@ $total_users = $stmt->fetch()['count'];
     <a href="sales.php" class="btn-nav"> Sales</a>
     <a href="worker_list.php" class="btn-nav"> Worker List</a>
     <a href="pending_workers.php" class="btn-nav"> Pending Workers</a>
+    <a href="worker_payment.php" class="btn-nav"> Worker Payments</a>
     <a href="../p_login/logout.php" class="btn-nav"> Logout</a>
 </div>
 
