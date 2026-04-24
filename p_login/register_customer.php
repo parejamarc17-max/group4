@@ -1,3 +1,13 @@
+<?php
+$error = '';
+$message = '';
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+}
+if (isset($_GET['message'])) {
+    $message = $_GET['message'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +20,18 @@
 <body>
     <div class="register-form">
         <h2>Register as Customer</h2>
+        
+        <?php if ($error): ?>
+            <div class="error-message">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if ($message): ?>
+            <div class="success-message">
+                <?php echo htmlspecialchars($message); ?>
+            </div>
+        <?php endif; ?>
         <form action="../processor/register_customer_process.php" method="POST">
             <div class="form-group">
                 <input type="text" name="username" placeholder="Username" required>

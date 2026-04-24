@@ -9,6 +9,12 @@ $total_cars = $stmt->fetch()['count'];
 $stmt = $pdo->query("SELECT COUNT(*) as count FROM rentals WHERE status = 'active'");
 $active_rentals = $stmt->fetch()['count'];
 
+$stmt = $pdo->query("SELECT COUNT(*) as count FROM rentals WHERE approval_status = 'pending'");
+$pending_approvals = $stmt->fetch()['count'];
+
+$stmt = $pdo->query("SELECT COUNT(*) as count FROM payment_requests WHERE status = 'paid'");
+$pending_verifications = $stmt->fetch()['count'];
+
 $stmt = $pdo->query("SELECT SUM(total_cost) as total FROM rentals WHERE status = 'completed'");
 $revenue = $stmt->fetch()['total'] ?? 0;
 
@@ -52,13 +58,22 @@ $total_users = $stmt->fetch()['count'];
     <img src="../assets/images/logo.png" class="profile-img" style="width:60px;height:60px;border-radius:50%;margin:10px auto;display:block;">
     <h2> DRIVE ADMIN</h2>
     <a href="dashboard.php" class="btn-nav"> Dashboard</a>
+    <a href="approve_booking.php" class="btn-nav"> Approve Bookings
+        <?php if ($pending_approvals > 0): ?>
+            <span class="menu-badge"><?= $pending_approvals ?></span>
+        <?php endif; ?>
+    </a>
+    <a href="verify_payment.php" class="btn-nav"> Verify Payments
+        <?php if ($pending_verifications > 0): ?>
+            <span class="menu-badge"><?= $pending_verifications ?></span>
+        <?php endif; ?>
+    </a>
     <a href="manage_car.php" class="btn-nav"> Manage Cars</a>
     <a href="rentals.php" class="btn-nav"> Rentals</a>
     <a href="products.php" class="btn-nav"> Products</a>
     <a href="sales.php" class="btn-nav"> Sales</a>
     <a href="worker_list.php" class="btn-nav"> Worker List</a>
     <a href="pending_workers.php" class="btn-nav"> Pending Workers</a>
-    <a href="worker_payment.php" class="btn-nav"> Worker Payments</a>
     <a href="../p_login/logout.php" class="btn-nav"> Logout</a>
 </div>
 
@@ -70,6 +85,8 @@ $total_users = $stmt->fetch()['count'];
         <div class="cards">
             <div class="card"> Total Cars<br><h2><?= $total_cars ?></h2></div>
             <div class="card"> Active Rentals<br><h2><?= $active_rentals ?></h2></div>
+            <div class="card" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);"> Pending Approvals<br><h2><?= $pending_approvals ?></h2></div>
+            <div class="card" style="background: linear-gradient(135deg, #cce5ff 0%, #74b9ff 100%);"> Need Verification<br><h2><?= $pending_verifications ?></h2></div>
            <div class="card">💰 Revenue <h2>₱<?= number_format($revenue, 2) ?></h2>
 </div>
 
