@@ -10,6 +10,7 @@ require_once 'config/database.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Luxury Car Rental Philippines</title>
     <link rel="stylesheet" href="assets/css/public.css">
+    <link rel="stylesheet" href="assets/css/modal-image-fix.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -147,7 +148,74 @@ if (!isset($_SESSION['customer_logged_in']) && isset($_COOKIE['customer_email'])
         </div>
         
         <!-- Cars Dashboard Grid -->
-        <div class="cars-grid" id="carsGrid"></div>
+        <div class="cars-grid" id="carsGrid">
+            <!-- Direct HTML Cars - Bypass JavaScript Issues -->
+            <div class="cars-section">
+                <!-- Car 1: Toyota Camry -->
+                <div class="car-card" data-car-id="1">
+                    <img src="assets/images/1777003333_69eaeb457d014.jpg" alt="Toyota Camry" class="car-image" onerror="this.src='assets/images/default-car.svg'">
+                    <div class="car-info">
+                        <h3 class="car-name">Toyota Camry</h3>
+                        <p class="car-brand">Toyota Camry (2023)</p>
+                        <div class="car-specs-badges">
+                            <span class="spec-badge transmission">Automatic</span>
+                            <span class="spec-badge fuel">Gasoline</span>
+                            <span class="spec-badge seats">5 Seats</span>
+                        </div>
+                        <p class="car-price">₱2,500 <span>/ day</span></p>
+                        <button class="rent-btn" data-car-id="1" data-car-name="Toyota Camry" data-car-price="2500" data-car-image="assets/images/1777003333_69eaeb457d014.jpg">Rent Now</button>
+                    </div>
+                </div>
+                
+                <!-- Car 2: Honda Civic -->
+                <div class="car-card" data-car-id="2">
+                    <img src="assets/images/1777003840_69eaed40b3ca5.jpg" alt="Honda Civic" class="car-image" onerror="this.src='assets/images/default-car.svg'">
+                    <div class="car-info">
+                        <h3 class="car-name">Honda Civic</h3>
+                        <p class="car-brand">Honda Civic (2023)</p>
+                        <div class="car-specs-badges">
+                            <span class="spec-badge transmission">Manual</span>
+                            <span class="spec-badge fuel">Gasoline</span>
+                            <span class="spec-badge seats">5 Seats</span>
+                        </div>
+                        <p class="car-price">₱2,200 <span>/ day</span></p>
+                        <button class="rent-btn" data-car-id="2" data-car-name="Honda Civic" data-car-price="2200" data-car-image="assets/images/1777003840_69eaed40b3ca5.jpg">Rent Now</button>
+                    </div>
+                </div>
+                
+                <!-- Car 3: Ford Mustang -->
+                <div class="car-card" data-car-id="3">
+                    <img src="assets/images/car-png-39073.png" alt="Ford Mustang" class="car-image" onerror="this.src='assets/images/default-car.svg'">
+                    <div class="car-info">
+                        <h3 class="car-name">Ford Mustang</h3>
+                        <p class="car-brand">Ford Mustang (2023)</p>
+                        <div class="car-specs-badges">
+                            <span class="spec-badge transmission">Manual</span>
+                            <span class="spec-badge fuel">Gasoline</span>
+                            <span class="spec-badge seats">4 Seats</span>
+                        </div>
+                        <p class="car-price">₱4,500 <span>/ day</span></p>
+                        <button class="rent-btn" data-car-id="3" data-car-name="Ford Mustang" data-car-price="4500" data-car-image="assets/images/car-png-39073.png">Rent Now</button>
+                    </div>
+                </div>
+                
+                <!-- Car 4: Toyota RAV4 -->
+                <div class="car-card" data-car-id="4">
+                    <img src="assets/images/cdb01d20b2b15e4152cfa2b82cd6fb01.jpg" alt="Toyota RAV4" class="car-image" onerror="this.src='assets/images/default-car.svg'">
+                    <div class="car-info">
+                        <h3 class="car-name">Toyota RAV4</h3>
+                        <p class="car-brand">Toyota RAV4 (2023)</p>
+                        <div class="car-specs-badges">
+                            <span class="spec-badge transmission">Automatic</span>
+                            <span class="spec-badge fuel">Gasoline</span>
+                            <span class="spec-badge seats">7 Seats</span>
+                        </div>
+                        <p class="car-price">₱3,500 <span>/ day</span></p>
+                        <button class="rent-btn" data-car-id="4" data-car-name="Toyota RAV4" data-car-price="3500" data-car-image="assets/images/cdb01d20b2b15e4152cfa2b82cd6fb01.jpg">Rent Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- Empty State Message -->
         <div id="emptyState" class="empty-state" style="display: none;">
@@ -158,19 +226,14 @@ if (!isset($_SESSION['customer_logged_in']) && isset($_COOKIE['customer_email'])
     </div>
 </section>
 
-<!-- Car Modal (360° View & Details) -->
+<!-- Car Modal (Single Image View & Details) -->
 <div id="carModal" class="car-modal">
     <div class="modal-container">
         <span class="modal-close">&times;</span>
         <div class="modal-content">
             <div class="modal-image-section">
-                <div class="image-rotation-container" id="rotationContainer">
-                    <img id="modalCarImage" src="" alt="Car 360° View">
-                </div>
-                <div class="rotation-controls">
-                    <button id="rotateLeft" class="rotate-btn"><i class="fas fa-chevron-left"></i> Rotate</button>
-                    <button id="rotateRight" class="rotate-btn">Rotate <i class="fas fa-chevron-right"></i></button>
-                    <div class="rotation-status"><i class="fas fa-mouse-pointer"></i> Click & drag to rotate 360°</div>
+                <div class="image-container">
+                    <img id="modalCarImage" src="" alt="Car Image" style="width: 100%; height: auto; border-radius: 8px;">
                 </div>
             </div>
             <div class="modal-info-section">

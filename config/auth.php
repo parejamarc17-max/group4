@@ -9,7 +9,7 @@ session_start([
 // Check if user is logged in
 function checkAuth() {
     if (!isset($_SESSION['user_id'])) {
-        header('Location: login.php');
+        header('Location: ../p_login/login.php');
         exit();
     }
 }

@@ -13,7 +13,7 @@ if (empty($_SESSION['csrf_token'])) {
 }
 
 // Upload folder
-$uploadDir = __DIR__ . "/../uploads/cars/";
+$uploadDir = __DIR__ . "/../assets/images/";
 
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0777, true);
@@ -283,7 +283,7 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
                             <tr>
                                 <td>
                                     <?php if (!empty($car['image'])): ?>
-                                        <img src="../uploads/cars/<?= htmlspecialchars($car['image']) ?>" alt="<?= htmlspecialchars($car['car_name']) ?>" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
+                                        <img src="../assets/images/<?= htmlspecialchars($car['image']) ?>" alt="<?= htmlspecialchars($car['car_name']) ?>" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
                                     <?php else: ?>
                                         <span>No Image</span>
                                     <?php endif; ?>
