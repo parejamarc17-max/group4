@@ -15,21 +15,6 @@ if ($password !== $confirm_password) {
     exit();
 }
 
-// Check if username already exists
-$stmt = $pdo->prepare("SELECT username, email FROM users WHERE username = ? OR email = ?");
-$stmt->execute([$username, $email]);
-$existing_user = $stmt->fetch();
-
-if ($existing_user) {
-    if ($existing_user['username'] === $username) {
-        header('Location: ../p_login/register_customer.php?error=Username already exists');
-        exit();
-    } else {
-        header('Location: ../p_login/register_customer.php?error=Email already registered');
-        exit();
-    }
-}
-
 // Hash the password after validation
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 

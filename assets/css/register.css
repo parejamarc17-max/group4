@@ -21,49 +21,26 @@ body {
 }
 
 /* Container */
-.register-form {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid #e1e5e9;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
-
-/* Worker Register Container */
+.register-form,
 .register-box {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid #e1e5e9;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
     width: 100%;
     max-width: 400px;
-    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    animation: slideUp 0.5s ease;
 }
 
-.error-message {
-    background: #f8d7da;
-    color: #721c24;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border-left: 4px solid #dc3545;
-    font-size: 14px;
-    text-align: left;
-}
-
-.success-message {
-    background: #d4edda;
-    color: #155724;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border-left: 4px solid #28a745;
-    font-size: 14px;
-    text-align: left;
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Header */
@@ -189,7 +166,7 @@ button:active {
 @media (max-width: 480px) {
     .register-form,
     .register-box {
-        padding: 20px;
+        padding: 15px;
     }
 
     .register-form h2,

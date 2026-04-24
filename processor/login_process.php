@@ -16,7 +16,7 @@ $valid_users = [
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
-    $submitted_role = $_POST['role'] ?? ''; // Get role from login form (may be empty for unified login)
+    $submitted_role = $_POST['role'] ?? ''; // Get role from login form
 
     // Check database first by username or email
     $stmt = $pdo->prepare("SELECT id, password, role, full_name FROM users WHERE username = ? OR email = ?");
@@ -24,10 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
-        // VALIDATE: Ensure submitted role matches actual user role (only if role was submitted)
+        // VALIDATE: Ensure submitted role matches actual user role
         if ($submitted_role && $submitted_role !== $user['role']) {
             // User tried to login through wrong portal (e.g., admin username through worker login)
-            $error_page = '../p_login/login.php';
+            $error_page = $submitted_role === 'admin' ? '../p_login/login.php' : '../p_login/login.php';
             header("Location: {$error_page}?error=Invalid credentials for this role");
             exit();
         }
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($user['role'] == 'admin') {
             header('Location: ../admin/dashboard.php');
         } elseif ($user['role'] == 'worker') {
-            header('Location: ../worker/dashboard.php');
+            header('Location: ../worker.php');
         } elseif ($user['role'] == 'customer') {
             header('Location: ../customer/dashboard.php');
         }
@@ -75,10 +75,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Fallback to hardcoded
     if (isset($valid_users[$username]) && $valid_users[$username]['password'] == $password) {
-        // VALIDATE: Ensure submitted role matches hardcoded user role (only if role was submitted)
+        // VALIDATE: Ensure submitted role matches hardcoded user role
         if ($submitted_role && $submitted_role !== $valid_users[$username]['role']) {
             // User tried to login through wrong portal
-            $error_page = '../p_login/login.php';
+            $error_page = $submitted_role === 'admin' ? '../p_login/login.php' : '../p_login/login.php';
             header("Location: {$error_page}?error=Invalid credentials for this role");
             exit();
         }
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($valid_users[$username]['role'] == 'admin') {
             header('Location: ../admin/dashboard.php');
         } elseif ($valid_users[$username]['role'] == 'worker') {
-            header('Location: ../worker/dashboard.php');
+            header('Location: ../worker.php');
         } elseif ($valid_users[$username]['role'] == 'customer') {
             header('Location: ../customer/dashboard.php');
         } 
