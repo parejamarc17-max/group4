@@ -364,3 +364,4 @@ function closeMenuAdmin() {
 <?php endforeach; ?>
 
 </table>
+</table>

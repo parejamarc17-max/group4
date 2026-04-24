@@ -39,18 +39,6 @@ if (isset($_POST['delete'])) {
 }
 if ($_SESSION['role'] !== 'worker') die("Access denied");
 
-/* ADD FEEDBACK */
-if (isset($_POST['feedback'])) {
-    $stmt = $pdo->prepare("INSERT INTO feedback (product_id, name, message, rating) VALUES (?, ?, ?, ?)");
-    $stmt->execute([
-        $_POST['product_id'],
-        $_POST['name'],
-        $_POST['message'],
-        $_POST['rating']
-    ]);
-}
-
-/* FETCH */
 $products = $pdo->query("SELECT * FROM products ORDER BY id DESC")->fetchAll();
 ?>
 

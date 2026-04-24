@@ -137,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     header("Location: manage_car.php");
     exit();
 }
+if ($_SESSION['role'] !== 'worker') die("Access denied");
 
 $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
 ?>
@@ -617,6 +618,30 @@ $cars = $pdo->query("SELECT * FROM car ORDER BY id DESC")->fetchAll();
         if (hamburger) hamburger.classList.remove('active');
     }
 </script>
+    <title>Cars (Worker View)</title>
+</head>
+<body>
+
+<h1>🚗 Cars List</h1>
+
+<table border="1">
+<tr>
+    <th>Name</th>
+    <th>Brand</th>
+    <th>Price/Day</th>
+    <th>Status</th>
+</tr>
+
+<?php foreach($cars as $c): ?>
+<tr>
+    <td><?= $c['car_name'] ?></td>
+    <td><?= $c['brand'] ?></td>
+    <td><?= $c['price_per_day'] ?></td>
+    <td><?= $c['status'] ?></td>
+</tr>
+<?php endforeach; ?>
+
+</table>
 
 </body>
 </html>
