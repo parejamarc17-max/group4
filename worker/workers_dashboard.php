@@ -1,7 +1,5 @@
 <?php
-require_once '../config/auth.php';
-require_once '../config/database.php';
-requireAdmin();
+session_start();
 
 $stmt = $pdo->query("SELECT COUNT(*) as count FROM car");
 $total_cars = $stmt->fetch()['count'];
@@ -93,18 +91,15 @@ function toggleMenuAdmin() {
         if (overlay) overlay.classList.add("active");
         if (hamburger) hamburger.classList.add('active');
     }
+if (!isset($_SESSION['role'])) {
+    header("Location: ../p_login/login.php");
+    exit();
 }
 
-function closeMenuAdmin() {
-    const menu = document.getElementById("adminMenu");
-    const overlay = document.getElementById("adminOverlay");
-    const hamburger = document.querySelector('.hamburger-btn');
-
-    if (menu) menu.classList.remove("active");
-    if (overlay) overlay.classList.remove("active");
-    if (hamburger) hamburger.classList.remove('active');
+if ($_SESSION['role'] === 'worker') {
+    header("Location: worker.php");
+    exit();
 }
-</script>
 
-</body>
-</html>
+header("Location: ../admin/dashboard.php");
+exit();

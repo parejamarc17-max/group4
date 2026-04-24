@@ -1,8 +1,8 @@
 <?php
-require_once '../config/auth.php';
 require_once '../config/database.php';
-requireAdmin();
+session_start();
 
+if ($_SESSION['role'] !== 'worker') die("Access denied");
 
 // =====================================
 // ❌ DELETE RENTAL
@@ -73,40 +73,23 @@ Thank you for using our service.
 // OLD RETURN SYSTEM (UNCHANGED)
 // =====================================
 if (isset($_GET['return'])) {
+    $id = $_GET['return'];
 
-    $stmt = $pdo->prepare("UPDATE rentals SET status = 'completed' WHERE id = ?");
-    $stmt->execute([$_GET['return']]);
+    $r = $pdo->prepare("SELECT car_id FROM rentals WHERE id=?");
+    $r->execute([$id]);
+    $car = $r->fetch();
 
-    $rental = $pdo->prepare("SELECT car_id FROM rentals WHERE id = ?");
-    $rental->execute([$_GET['return']]);
-    $car_id = $rental->fetch()['car_id'];
-
-    $pdo->prepare("UPDATE car SET status = 'available' WHERE id = ?")
-        ->execute([$car_id]);
-
-    $_SESSION['returned_id'] = $_GET['return'];
+    $pdo->prepare("UPDATE rentals SET status='completed' WHERE id=?")->execute([$id]);
+    $pdo->prepare("UPDATE car SET status='available' WHERE id=?")->execute([$car['car_id']]);
 
     header("Location: rentals.php");
     exit();
 }
 
-
-// =====================================
-// FETCH
-// =====================================
-$rentals = $pdo->query("
-    SELECT r.*, c.car_name 
-    FROM rentals r 
-    LEFT JOIN car c ON r.car_id = c.id 
-    ORDER BY r.id DESC
-")->fetchAll();
+$rentals = $pdo->query("SELECT * FROM rentals ORDER BY id DESC")->fetchAll();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Rental Management</title>
+<h1>📅 Rentals (Worker)</h1>
 
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/sidebar.css">
@@ -215,9 +198,13 @@ tr:hover {
     <th>Return Date</th>
     <th>Total Cost</th>
     <th>Payment</th> <!--ADDED-->
+<table border="1">
+<tr>
+    <th>Customer</th>
+    <th>Car ID</th>
+    <th>Status</th>
     <th>Action</th>
 </tr>
-</thead>
 
 <tbody>
 
@@ -363,3 +350,17 @@ function closeMenuAdmin() {
 
 </body>
 </html>
+<?php foreach($rentals as $r): ?>
+<tr>
+    <td><?= $r['customer_name'] ?></td>
+    <td><?= $r['car_id'] ?></td>
+    <td><?= $r['status'] ?></td>
+    <td>
+        <?php if($r['status'] == 'active'): ?>
+            <a href="?return=<?= $r['id'] ?>">Return</a>
+        <?php endif; ?>
+    </td>
+</tr>
+<?php endforeach; ?>
+
+</table>
